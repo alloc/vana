@@ -1,0 +1,10 @@
+{
+  "extends": [
+    "tslint-no-circular-imports",
+    "tslint-mango"
+  ],
+  "rules": {
+    "no-commented-out-code": false,
+    "object-literal-sort-keys": false
+  }
+}
