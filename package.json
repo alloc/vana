@@ -36,6 +36,6 @@
     "tslint": "5.12.1",
     "tslint-mango": "0.1.10",
     "tslint-no-circular-imports": "0.6.1",
-    "typescript": "3.2.2"
+    "typescript": "3.3.1"
   }
 }
