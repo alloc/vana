@@ -1,7 +1,6 @@
 // tslint:disable:variable-name
 import { isDraft, isDraftable } from 'immer'
 import {
-  AnyProp,
   definePrivate,
   Dictionary,
   Except,
@@ -19,27 +18,15 @@ import {
 
 /** An observable object with observable properties */
 export class OProps<T extends Dictionary<any> = any> extends Observable<T> {
-  watched?: Map<AnyProp, OProp<T>> = undefined
+  watched?: Dictionary<OProp<T>>
 
   constructor(source: Except<T, Function>) {
     super(source)
   }
 
   watch<P extends string | number>(prop: P): OProp<T, P> {
-    let watched = this.watched || (this.watched = new Map())
-    let target = watched.get(prop)
-    if (!target) {
-      target = new OProp<T, P>(this, prop)
-      watched.set(prop, target)
-    }
-    return target
-  }
-
-  /** @internal */
-  ['_unwatch'](prop: string | number) {
-    let watched = this.watched!
-    if (watched.size > 1) watched.delete(prop)
-    else this.watched = undefined
+    let watched = this.watched || (this.watched = Object.create(null))
+    return watched[prop] || (watched[prop] = new OProp<T, P>(this, prop))
   }
 
   /** @internal */
@@ -96,7 +83,7 @@ export class OProps<T extends Dictionary<any> = any> extends Observable<T> {
       }
 
       if (this.watched) {
-        let target = this.watched.get(prop)
+        let target = this.watched[prop]
         if (target) {
           commit(target, oldValue, newValue, null, false, change.state)
         }
@@ -146,14 +133,17 @@ export class OProp<
     if (!this._observedValue) {
       this._observeValue(this.get())
     }
+    // Ensure this instance can receive changes.
+    this.parent.watched![this.prop] = this
   }
 
   protected deactivate() {
-    this.parent._unwatch(this.prop)
     if (this._observedValue) {
       this._observedValue._removeObserver(this)
       this._observedValue = undefined
     }
+    // Ensure this instance can be garbage collected.
+    delete this.parent.watched![this.prop]
   }
 
   private _observeValue(value: T[P]) {
