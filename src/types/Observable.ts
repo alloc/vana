@@ -49,7 +49,11 @@ export class Observable<T = any> implements IObserver<T> {
 
   /** Listen for changes. */
   tap(onUpdate: (value: T) => void) {
-    let observer: IObserver<T> = {
+    type ITapper = IObserver<T> & {
+      onUpdate: typeof onUpdate
+    }
+    let observer: ITapper = {
+      onUpdate,
       dispose: () => this._removeObserver(observer),
       _onChange: change => change.prop !== null || onUpdate(change.newValue),
     }
