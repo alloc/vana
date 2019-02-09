@@ -176,7 +176,7 @@ describe('revise()', () => {
       let a1 = o({})
       let base = o({ a: a1 })
       let baseObservable = getObservable(base) as OProps
-      let propObservable = baseObservable.watched!.get('a')!
+      let propObservable = baseObservable.watched!.a!
 
       let a2 = o({})
       revise(base, draft => {

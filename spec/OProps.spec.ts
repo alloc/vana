@@ -16,8 +16,8 @@ describe('new OProps()', () => {
     it('creates an OProp<T> for the property name', () => {
       let base = o({ a: {} })
       let { watched } = getObservable(base) as OProps
-      expect(watched).not.toBeUndefined()
-      expect(watched!.get('a')).toBeInstanceOf(OProp)
+      expect(watched).toBeDefined()
+      expect(watched!.a).toBeInstanceOf(OProp)
     })
   })
 
@@ -63,11 +63,11 @@ describe('new OProps()', () => {
       type Base = { a?: { b: number } }
       let base: Base = o({ a: { b: 1 } })
       let baseObservable = getObservable(base) as OProps
-      let propObservable = baseObservable.watched!.get('a')!
+      let propObservable = baseObservable.watched!.a!
       let observer = watch(base, 'a').tap(() => {})
 
       revise(base, { a: undefined })
-      expect(baseObservable.watched).not.toBeUndefined()
+      expect(baseObservable.watched).toBeDefined()
       expect(propObservable._observers).toEqual([observer])
     })
   })
