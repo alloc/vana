@@ -71,9 +71,11 @@ export class Observable<T = any> implements IObserver<T> {
 
   /** @internal Notify observers of a change */
   ['_onChange'](change: Change<T>) {
-    if (!this._observers) return
-    for (let observer of this._observers) {
-      observer._onChange(change)
+    let observers = this._observers
+    if (observers) {
+      for (let observer of observers.slice(0)) {
+        observer._onChange(change)
+      }
     }
   }
 
