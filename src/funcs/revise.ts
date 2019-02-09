@@ -1,7 +1,7 @@
 import { Immutable, isDraft, isDraftable } from 'immer'
 import { each, Except, getProto, has } from '../common'
 import { produce, Recipe } from '../immer'
-import { getObservable } from '../types/Observable'
+import { __$observable } from '../types/Observable'
 import { OProps } from '../types/OProps'
 import { commit } from './commit'
 import { freeze } from './freeze'
@@ -37,6 +37,10 @@ export function revise<T extends object, U extends Partial<T>>(
 
 /** @internal */
 export function revise(base: object, reviser: any, ...args: any[]) {
+  let observable = base[__$observable]
+  if (observable && !observable._isCurrent(base)) {
+    throw Error('Outdated values cannot be revised')
+  }
   return typeof reviser == 'object'
     ? assignToCopy(base, reviser)
     : produce(base, args.length ? draft => reviser(draft, ...args) : reviser)
@@ -48,7 +52,7 @@ export function assignToCopy<T extends object>(
   changes: Partial<T>
 ): Readonly<T> {
   let copy: any
-  let observable = getObservable(base) as OProps
+  let observable = base[__$observable] as OProps
 
   // To know if nothing changed as early as possible, apply the changes first.
   for (let prop in changes) {

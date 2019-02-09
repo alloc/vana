@@ -104,7 +104,7 @@ function createTests(useProxies: boolean, title: string) {
       op.tap(spy)
 
       // Delete a parent:
-      revise(base, base => {
+      base = revise(base, base => {
         delete base.a.b
       })
       expect(spy).toBeCalledWith(undefined)
