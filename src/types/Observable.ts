@@ -134,8 +134,8 @@ export function isObservable(value: any): value is object {
 }
 
 /** Throws an error when the given object is an old revision */
-export function getObservable(value: object) {
-  let observable: Observable = value[__$observable]
+export function getObservable<T = any>(value: object) {
+  let observable: Observable<T> = value[__$observable]
   if (observable) {
     if (!observable._isCurrent(value)) {
       throw Error('Outdated values cannot be observed')
