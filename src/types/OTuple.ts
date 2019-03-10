@@ -1,6 +1,7 @@
 import { isObject } from '../common'
 import { IChangeTarget } from '../funcs/commit'
-import { __$observable, getObservable, Observable } from './Observable'
+import { $O } from '../symbols'
+import { getObservable, Observable } from './Observable'
 
 type AnyArray = ReadonlyArray<any>
 
@@ -59,7 +60,7 @@ export class OTuple<T extends AnyArray> extends Observable<ObservedTuple<T>> {
 
 function getTarget(value: any): Observable | null {
   if (value instanceof Observable) return value
-  return (value && value[__$observable]) || null
+  return (value && value[$O]) || null
 }
 
 function toValue(value: any) {
@@ -75,6 +76,6 @@ function toLastValue(value: any) {
   if (value instanceof Observable) {
     return value.get()
   }
-  let target = value && value[__$observable]
+  let target = value && value[$O]
   return target ? target.get() : value
 }

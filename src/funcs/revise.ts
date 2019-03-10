@@ -1,7 +1,7 @@
 import { isDraft, isDraftable } from 'immer'
 import { each, Except, getProto, has } from '../common'
 import { produce, Recipe } from '../immer'
-import { __$observable } from '../types/Observable'
+import { $O } from '../symbols'
 import { OProps } from '../types/OProps'
 import { commit } from './commit'
 import { freeze, isFrozen } from './freeze'
@@ -37,7 +37,7 @@ export function revise<T extends object, U extends Partial<T>>(
 
 /** @internal */
 export function revise(base: object, reviser: any, ...args: any[]) {
-  let observable = base[__$observable]
+  let observable = base[$O]
   if (observable && !observable._isCurrent(base)) {
     throw Error('Outdated values cannot be revised')
   }
@@ -52,7 +52,7 @@ export function assignToCopy<T extends object>(
   changes: Partial<T>
 ): T {
   let copy: any
-  let observable = base[__$observable] as OProps
+  let observable = base[$O] as OProps
 
   // To know if nothing changed as early as possible, apply the changes first.
   for (let prop in changes) {

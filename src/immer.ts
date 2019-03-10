@@ -1,7 +1,8 @@
 import { Draft, Immer, IProduce } from 'immer'
 import { definePrivate, isArray } from './common'
 import { commit } from './funcs/commit'
-import { __$observable, Observable } from './types/Observable'
+import { $O } from './symbols'
+import { Observable } from './types/Observable'
 
 /** Function that modifies a draft */
 export type Recipe<
@@ -19,12 +20,12 @@ export const immer = new Immer({
   },
   onCopy(state) {
     let { base } = state
-    let target: Observable = base && base[__$observable]
+    let target: Observable = base && base[$O]
     if (target) {
       let { copy, assigned } = state
       if (isArray(base)) {
-        // Non-arrays have their __$observable property copied over by Immer.
-        definePrivate(copy, __$observable, target)
+        // $O is missing, because Immer only copies the indices.
+        definePrivate(copy, $O, target)
       }
       target._rebind(copy)
       for (let prop in assigned) {

@@ -1,6 +1,7 @@
 import { isDraftable } from 'immer'
 import { definePrivate } from '../common'
-import { __$observable, Observable } from '../types/Observable'
+import { $O } from '../symbols'
+import { Observable } from '../types/Observable'
 import { OProps } from '../types/OProps'
 import { isFrozen } from './freeze'
 
@@ -20,7 +21,7 @@ export function bind<T extends object>(
 
 /** @internal */
 export function bind(source: object, observable?: Observable) {
-  if (source[__$observable]) {
+  if (source[$O]) {
     throw Error('Already observable')
   }
   if (isFrozen(source)) {
@@ -33,6 +34,6 @@ export function bind(source: object, observable?: Observable) {
     observable = new OProps(source)
   } else return
 
-  definePrivate(source, __$observable, observable)
+  definePrivate(source, $O, observable)
   return observable
 }

@@ -2,7 +2,8 @@
 import { definePrivate, isThenable, IThenable, noop } from '../common'
 import { commit } from '../funcs/commit'
 import { freeze } from '../funcs/freeze'
-import { __$observable, getObservable, Observable } from './Observable'
+import { $O } from '../symbols'
+import { getObservable, Observable } from './Observable'
 
 export type PromiseState<T = any> =
   | PendingState
@@ -75,7 +76,7 @@ export class OPromise<T = any> extends Observable<PromiseState<T>> {
   /** @internal */
   ['_isCurrent'](value: any) {
     // OPromise instances are never bound to more than one Promise.
-    return value && value[__$observable] === this
+    return value && value[$O] === this
   }
 
   static resolve<T>(result: IThenable<T>): OPromise<T>
@@ -103,7 +104,7 @@ export function bindPromise<T>(promise: IThenable<T>) {
   let observable = getObservable(promise)
   if (!observable) {
     observable = OPromise.resolve(promise)
-    definePrivate(promise, __$observable, observable)
+    definePrivate(promise, $O, observable)
   }
   return observable
 }

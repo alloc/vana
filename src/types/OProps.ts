@@ -9,12 +9,8 @@ import {
 } from '../common'
 import { Change, commit } from '../funcs/commit'
 import { freeze, isFrozen } from '../funcs/freeze'
-import {
-  __$observable,
-  getObservable,
-  isObservable,
-  Observable,
-} from './Observable'
+import { $O } from '../symbols'
+import { getObservable, isObservable, Observable } from './Observable'
 
 /** An observable object with observable properties */
 export class OProps<T extends Dictionary<any> = any> extends Observable<T> {
@@ -67,7 +63,7 @@ export class OProps<T extends Dictionary<any> = any> extends Observable<T> {
     else if (change.prop !== null) {
       let { prop, oldValue, newValue } = change
 
-      let oldObservable = oldValue && oldValue[__$observable]
+      let oldObservable = oldValue && oldValue[$O]
       if (newValue) {
         let observable = getObservable(newValue)
 
@@ -153,7 +149,7 @@ export class OProp<
     }
     // Avoid throwing on stale values.
     if (isObservable(value)) {
-      observed = value[__$observable]
+      observed = value[$O]
       observed!._addObserver(this)
       this._observedValue = observed
     } else if (observed) {
@@ -174,7 +170,7 @@ export function bindProps<T extends object>(root: Except<T, Function>) {
   }
 
   const rootObservable = new OProps(root)
-  definePrivate(root, __$observable, rootObservable)
+  definePrivate(root, $O, rootObservable)
 
   const observeTree = (parent: object, observer: OProps) => {
     // Only enumerable keys are made observable.
@@ -185,7 +181,7 @@ export function bindProps<T extends object>(root: Except<T, Function>) {
         if (!observable) {
           if (isFrozen(value) || !isDraftable(value)) return
           observable = new OProps(value)
-          definePrivate(value, __$observable, observable)
+          definePrivate(value, $O, observable)
           observeTree(value, observable)
         }
         // To support deep observation, any property with an

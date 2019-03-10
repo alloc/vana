@@ -1,5 +1,6 @@
 import { IDisposable } from '../common'
 import { Change, commit, IChangeTarget } from '../funcs/commit'
+import { $O } from '../symbols'
 
 /**
  * Observers are disposable "change targets".
@@ -12,9 +13,6 @@ export interface IObserver<T = any> extends IChangeTarget<T>, IDisposable {}
 type Source<T = any> = (() => T) | T
 
 let nextId = 1
-
-/** Unique symbol for the internal Observable instance */
-export const __$observable = Symbol('vana:observable') // tslint:disable-line
 
 /** An observable value */
 export class Observable<T = any> implements IObserver<T> {
@@ -125,7 +123,7 @@ export class Observable<T = any> implements IObserver<T> {
 /** Returns true if the given value has been passed to `o()` and is not stale. */
 export function isObservable(value: any): value is object {
   if (value) {
-    let observable: Observable = value[__$observable]
+    let observable: Observable = value[$O]
     if (observable) {
       return observable._isCurrent(value)
     }
@@ -135,7 +133,7 @@ export function isObservable(value: any): value is object {
 
 /** Throws an error when the given object is an old revision */
 export function getObservable<T = any>(value: object) {
-  let observable: Observable<T> = value[__$observable]
+  let observable: Observable<T> = value[$O]
   if (observable) {
     if (!observable._isCurrent(value)) {
       throw Error('Outdated values cannot be observed')

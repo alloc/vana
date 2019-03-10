@@ -9,7 +9,8 @@ import {
   isArray,
 } from '../common'
 import { immer } from '../immer'
-import { __$observable, getObservable, Observable } from '../types/Observable'
+import { $O } from '../symbols'
+import { getObservable, Observable } from '../types/Observable'
 import { OPath } from '../types/OPath'
 
 /**
@@ -107,7 +108,7 @@ type ProxyState = { target: object; observable: Observable }
 
 const watchProxyHandler: ProxyHandler<ProxyState> = {
   get(state, prop) {
-    if (prop == __$observable) {
+    if (prop == $O) {
       return state.observable
     }
     if (!isWatchable(state.observable)) {
@@ -133,7 +134,7 @@ function createLegacyProxy(target: object, observable: Observable) {
     ? []
     : Object.create(Object.getPrototypeOf(target))
 
-  definePrivate(proxy, __$observable, observable)
+  definePrivate(proxy, $O, observable)
 
   each(target, prop => {
     if (prop in proxy) return

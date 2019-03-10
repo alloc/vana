@@ -7,8 +7,9 @@ import {
   isObject,
   isThenable,
 } from '../common'
+import { $O } from '../symbols'
 import { Driver, OBinding } from '../types/OBinding'
-import { __$observable, isObservable, Observable } from '../types/Observable'
+import { isObservable, Observable } from '../types/Observable'
 import { bindPromise } from '../types/OPromise'
 import { bindProps } from '../types/OProps'
 
@@ -50,7 +51,7 @@ export function o(arg: unknown) {
       bindPromise(arg)
       return arg
     }
-    if (arg[__$observable]) {
+    if (arg[$O]) {
       return clone(arg)
     }
     bindProps(arg)
@@ -63,7 +64,7 @@ export function o(arg: unknown) {
 function clone(src: object) {
   let dest = isArray(src) ? [] : Object.create(getProto(src))
   each(src, prop => {
-    if (prop !== __$observable) {
+    if (prop !== $O) {
       let desc = copyProp(src, prop, dest)
 
       // Only enumerable keys are made observable.
