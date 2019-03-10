@@ -1,4 +1,5 @@
-import { IDisposable } from '../common'
+import { IDisposable, shallowCopy } from '../common'
+import { getDebug } from '../debug'
 import { Change, commit, IChangeTarget } from '../funcs/commit'
 import { $O } from '../symbols'
 
@@ -70,6 +71,16 @@ export class Observable<T = any> implements IObserver<T> {
   /** @internal Notify observers of a change */
   ['_onChange'](change: Change<T>) {
     let observers = this._observers
+    if (getDebug(this)) {
+      // tslint:disable-next-line
+      console.debug(
+        '%s(%s) changed: (observers: %O, change: %O)',
+        this.constructor.name,
+        this.id,
+        observers ? observers.length : 0,
+        shallowCopy(change)
+      )
+    }
     if (observers) {
       for (let observer of observers.slice(0)) {
         observer._onChange(change)
