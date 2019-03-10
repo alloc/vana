@@ -57,7 +57,7 @@ export class OPath<T = any> extends Observable<T> {
       this._observePath()
 
       super._onChange({
-        target: this,
+        target: this as OPath<any>,
         oldValue,
         newValue: this.get(),
         prop: null,
@@ -128,7 +128,7 @@ export class OPath<T = any> extends Observable<T> {
   }
 
   private _observeParent(parent: object) {
-    let target = getObservable(parent)
+    let target = getObservable<object>(parent)
     if (target) {
       target._addObserver(this)
       this._observedParents!.push(target)
