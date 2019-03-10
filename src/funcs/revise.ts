@@ -1,10 +1,10 @@
-import { Immutable, isDraft, isDraftable } from 'immer'
+import { isDraft, isDraftable } from 'immer'
 import { each, Except, getProto, has } from '../common'
 import { produce, Recipe } from '../immer'
 import { __$observable } from '../types/Observable'
 import { OProps } from '../types/OProps'
 import { commit } from './commit'
-import { freeze } from './freeze'
+import { freeze, isFrozen } from './freeze'
 
 const {
   getOwnPropertyDescriptor: getPropDesc,
@@ -23,7 +23,7 @@ export function revise<T extends object, Args extends any[]>(
   base: T,
   produce: Recipe<T, Args>,
   ...args: Args
-): Immutable<T>
+): T
 
 /**
  * Clone the first argument and merge the second argument into it.
@@ -33,7 +33,7 @@ export function revise<T extends object, Args extends any[]>(
 export function revise<T extends object, U extends Partial<T>>(
   base: Except<T, Function | ReadonlyArray<any>>,
   changes: U
-): Immutable<T>
+): T
 
 /** @internal */
 export function revise(base: object, reviser: any, ...args: any[]) {
@@ -48,9 +48,9 @@ export function revise(base: object, reviser: any, ...args: any[]) {
 
 /** @internal Supports observable and non-observable objects */
 export function assignToCopy<T extends object>(
-  base: Readonly<T>,
+  base: T,
   changes: Partial<T>
-): Readonly<T> {
+): T {
   let copy: any
   let observable = base[__$observable] as OProps
 
@@ -98,7 +98,8 @@ export function assignToCopy<T extends object>(
       }
     }
 
-    return freeze(copy) as any
+    // Freeze the copy only if the base is frozen.
+    return isFrozen(base) ? freeze(copy) : copy
   }
   return base
 }
