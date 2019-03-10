@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "main": "lib/index.js",
   "license": "MIT",
-  "repository": "aleclarson/vana",
+  "repository": "alloc/vana",
   "description": "Observe your immutable state trees",
   "files": [
     "lib"
