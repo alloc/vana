@@ -28,6 +28,12 @@ export class Observable<T = any> implements IObserver<T> {
     this._rebind(source)
   }
 
+  /** Try coercing the given value into an Observable instance. */
+  static from<T = any>(value: any): Observable<T> | undefined {
+    return value instanceof Observable ? value : value ? value[$O] : undefined
+  }
+
+  /** The current value. */
   get(): T {
     return this._get ? this._get() : this._value!
   }
