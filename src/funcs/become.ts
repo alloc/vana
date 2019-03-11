@@ -1,16 +1,19 @@
+import { definePrivate } from '../common'
+import { $O } from '../symbols'
 import { getObservable } from '../types/Observable'
-import { bind } from './bind'
-import { commit } from './commit'
-import { freeze, Frozen } from './freeze'
+import { freeze, isFrozen } from './freeze'
 
 /**
- * Make `copy` the next revision of `base`, then freeze the `copy`.
+ * Mark `copy` as the "next revision" of `base` (which makes `copy` observable).
+ *
+ * Returns `copy` only if `base` is observable (and `copy` is frozen only if
+ * `base` is). Else return undefined.
  */
-export function become<T extends object>(base: T, copy: T): Frozen<T> {
+export function become<T extends object>(base: T, copy: T): T | undefined {
   const target = getObservable(base)
   if (target) {
-    bind(copy, target)
-    commit(target, base, copy)
+    target._rebind(copy)
+    definePrivate(copy, $O, target)
+    return isFrozen(base) ? (freeze(copy) as T) : copy
   }
-  return freeze(copy)
 }
