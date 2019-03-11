@@ -1,6 +1,6 @@
 import { isObject } from '../common'
-import { IChangeTarget } from '../funcs/commit'
 import { $O } from '../symbols'
+import { IChangeTarget } from './Change'
 import { getObservable, Observable } from './Observable'
 
 type AnyArray = ReadonlyArray<any>

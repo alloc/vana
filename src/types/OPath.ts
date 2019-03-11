@@ -1,5 +1,5 @@
 import { AnyProp, Dictionary, isPlainObject } from '../common'
-import { Change } from '../funcs/commit'
+import { Change } from './Change'
 import { getObservable, isObservable, Observable } from './Observable'
 
 /**

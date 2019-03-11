@@ -7,9 +7,10 @@ import {
   isObject,
   shallowCopy,
 } from '../common'
-import { Change, commit } from '../funcs/commit'
+import { commit } from '../funcs/commit'
 import { freeze, isFrozen } from '../funcs/freeze'
 import { $O } from '../symbols'
+import { Change } from './Change'
 import { getObservable, isObservable, Observable } from './Observable'
 
 /** An observable object with observable properties */
