@@ -1,9 +1,7 @@
-import { isObject } from '../common'
+import { AnyArray, isObject } from '../common'
 import { $O } from '../symbols'
 import { IChangeTarget } from './Change'
 import { getObservable, Observable } from './Observable'
-
-type AnyArray = ReadonlyArray<any>
 
 export type ObservedTuple<T extends AnyArray> = {
   [P in keyof T]: T[P] extends Observable<infer U> ? U : T[P]

@@ -4,6 +4,9 @@ export type Id<T> = { [P in keyof T]: T[P] }
 /** Any property name */
 export type AnyProp = keyof any
 
+/** Any array type */
+export type AnyArray = ReadonlyArray<any>
+
 /** Used in place of `object` when necessary */
 export type Dictionary<T> = {
   [key: string]: T | undefined

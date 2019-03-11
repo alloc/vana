@@ -1,6 +1,5 @@
+import { AnyArray } from './common'
 import { become } from './funcs/become'
-
-type AnyArray = ReadonlyArray<any>
 
 export function append<T>(
   base: ReadonlyArray<T>,
