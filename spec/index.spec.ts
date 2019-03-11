@@ -1,4 +1,3 @@
-// tslint:disable:no-construct
 import {
   freeze,
   isObservable,
