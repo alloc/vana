@@ -1,5 +1,5 @@
 import { isDraft, isDraftable } from 'immer'
-import { each, Except, getProto, has } from '../common'
+import { each, getProto, has } from '../common'
 import { produce, Recipe } from '../immer'
 import { $O } from '../symbols'
 import { OProps } from '../types/OProps'
@@ -31,7 +31,7 @@ export function revise<T extends object, Args extends any[]>(
  * The observability of the returned object is inherited from the base object.
  */
 export function revise<T extends object, U extends Partial<T>>(
-  base: Except<T, Function | ReadonlyArray<any>>,
+  base: Exclude<T, Function | ReadonlyArray<any>>,
   changes: U
 ): T
 

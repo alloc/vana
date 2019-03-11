@@ -4,8 +4,6 @@ export type Id<T> = { [P in keyof T]: T[P] }
 /** Any property name */
 export type AnyProp = keyof any
 
-export type Except<T, U> = T extends U ? never : T
-
 /** Used in place of `object` when necessary */
 export type Dictionary<T> = {
   [key: string]: T | undefined

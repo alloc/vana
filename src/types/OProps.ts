@@ -1,12 +1,6 @@
 // tslint:disable:variable-name
 import { isDraft, isDraftable } from 'immer'
-import {
-  definePrivate,
-  Dictionary,
-  Except,
-  isObject,
-  shallowCopy,
-} from '../common'
+import { definePrivate, Dictionary, isObject, shallowCopy } from '../common'
 import { commit } from '../funcs/commit'
 import { freeze, isFrozen } from '../funcs/freeze'
 import { $O } from '../symbols'
@@ -17,7 +11,7 @@ import { getObservable, isObservable, Observable } from './Observable'
 export class OProps<T extends Dictionary<any> = any> extends Observable<T> {
   watched?: Dictionary<OProp<T>>
 
-  constructor(source: Except<T, Function>) {
+  constructor(source: Exclude<T, Function>) {
     super(source)
   }
 
@@ -159,7 +153,7 @@ export class OProp<
   }
 }
 
-export function bindProps<T extends object>(root: Except<T, Function>) {
+export function bindProps<T extends object>(root: Exclude<T, Function>) {
   if (isFrozen(root)) {
     throw Error('Frozen objects cannot become observable')
   }

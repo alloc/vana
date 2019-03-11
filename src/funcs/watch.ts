@@ -5,7 +5,6 @@ import {
   definePrivate,
   Dictionary,
   each,
-  Except,
   isArray,
 } from '../common'
 import { immer } from '../immer'
@@ -18,7 +17,7 @@ import { OPath } from '../types/OPath'
  * converted into nested proxies (for objects) or an observable (for leaf nodes).
  */
 export function watch<T extends object>(
-  root: Except<T, NotProxyable>
+  root: Exclude<T, NotProxyable>
 ): WatchProxy<T>
 
 /**
@@ -29,7 +28,7 @@ export function watch<T extends object>(
 export function watch<
   T extends object,
   S extends (proxy: WatchProxy<T>) => any
->(root: Except<T, NotProxyable>, selector: S): ReturnType<S>
+>(root: Exclude<T, NotProxyable>, selector: S): ReturnType<S>
 
 /** Track any property of an object. */
 export function watch<T extends Dictionary<any>, P extends string | number>(
