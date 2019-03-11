@@ -114,6 +114,7 @@ export class Observable<T = any> implements IObserver<T> {
       this.activate()
       this._observers = [observer]
     }
+    return observer
   }
 
   /** @internal */
