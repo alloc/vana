@@ -1,66 +1,93 @@
 import { AnyArray } from './common'
 import { become } from './funcs/become'
+import { commitIndices } from './funcs/commitIndices'
+import { commitLength } from './funcs/commitLength'
 
-export function append<T>(
-  base: ReadonlyArray<T>,
-  first: T,
-  ...rest: T[]
-): typeof base
+export function append<T extends AnyArray>(
+  base: T,
+  first: T[number],
+  ...rest: Array<T[number]>
+): T
 
 export function append(base: AnyArray, ...values: any[]) {
   const copy = base.slice()
   copy.push(...values)
-  return become(base, copy)
+  if (become(base, copy)) {
+    commitIndices(base, copy, base.length, values.length)
+    commitLength(base, copy)
+  }
+  return copy
 }
 
-export function prepend<T>(
-  base: ReadonlyArray<T>,
-  first: T,
-  ...rest: T[]
-): typeof base
+export function prepend<T extends AnyArray>(
+  base: T,
+  first: T[number],
+  ...rest: Array<T[number]>
+): T
 
 export function prepend(base: AnyArray, ...values: any[]) {
-  return become(base, values.concat(base))
+  const copy = values.concat(base)
+  if (become(base, copy)) {
+    commitIndices(base, copy, 0, copy.length)
+    commitLength(base, copy)
+  }
+  return copy
 }
 
-export function insert<T>(
-  base: ReadonlyArray<T>,
+export function insert<T extends AnyArray>(
+  base: T,
   index: number,
-  first: T,
-  ...rest: T[]
-): typeof base
+  first: T[number],
+  ...rest: Array<T[number]>
+): T
 
 export function insert(base: AnyArray, index: number, ...values: any[]) {
-  return become(base, base.slice(0, index).concat(values, base.slice(index)))
+  const copy = base.slice(0, index).concat(values, base.slice(index))
+  if (become(base, copy)) {
+    commitIndices(base, copy, index, copy.length - index)
+    commitLength(base, copy)
+  }
+  return copy
 }
 
-export function concat<T>(
-  base: ReadonlyArray<T>,
-  first: Exclude<T, AnyArray> | ReadonlyArray<T>,
+export function concat<T extends AnyArray>(
+  base: T,
+  first: Exclude<T[number], AnyArray> | T,
   ...rest: Array<typeof first>
-): typeof base
+): T
 
 export function concat(base: AnyArray, ...values: any[]) {
   const copy = base.concat(...values)
-  return copy.length == base.length ? base : become(base, copy)
+  const delta = copy.length - base.length
+  if (delta == 0) {
+    return base
+  }
+  if (become(base, copy)) {
+    commitIndices(base, copy, base.length, delta)
+    commitLength(base, copy)
+  }
+  return copy
 }
 
-export function remove<T>(
-  base: ReadonlyArray<T>,
+export function remove<T extends AnyArray>(
+  base: T,
   index: number,
   count: number = 1
-): typeof base {
-  if (count > 0 && index < base.length && index + count > 0) {
-    const copy =
-      index <= 0
-        ? base.slice(index + count)
-        : index + count >= base.length
-        ? base.slice(0, index)
-        : base.slice(0, index).concat(base.slice(index + count))
-
-    if (copy.length !== base.length) {
-      return become(base, copy)
-    }
+): T {
+  if (count <= 0 || index >= base.length || index + count <= 0) {
+    return base
   }
-  return base
+
+  const copy: any =
+    index <= 0
+      ? base.slice(index + count)
+      : index + count >= base.length
+      ? base.slice(0, index)
+      : base.slice(0, index).concat(base.slice(index + count))
+
+  if (become(base, copy)) {
+    commitIndices(base, copy, index, base.length - index)
+    commitLength(base, copy)
+  }
+  return copy
 }
