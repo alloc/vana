@@ -93,9 +93,7 @@ export function assignToCopy<T extends object>(
       for (let prop of changed) {
         commit(observable, base[prop], copy[prop], prop)
       }
-      if (observable._observers) {
-        commit(observable, base, copy)
-      }
+      commit(observable, base, copy)
     }
 
     // Freeze the copy only if the base is frozen.
