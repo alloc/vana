@@ -41,7 +41,11 @@ export class OProps<T extends Dictionary<any> = any> extends Observable<T> {
       let target = change.target as OProp<T>
       let nextProps = shallowCopy(currProps)
       nextProps[target.prop] = change.newValue
-      this._rebind(freeze(nextProps) as any)
+
+      // Bind `this` to its next value.
+      definePrivate(nextProps, $O, this)
+      this._rebind(nextProps)
+      freeze(nextProps)
 
       // Reuse the change object, since only we receive it.
       change.target = this
