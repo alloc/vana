@@ -85,7 +85,7 @@ export class Observable<T = any> implements IObserver<T> {
         this.constructor.name,
         this.id,
         observers ? observers.length : 0,
-        shallowCopy(change)
+        shallowCopy(change) // TODO: Deep copy instead
       )
     }
     if (observers) {
