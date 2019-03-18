@@ -60,7 +60,7 @@ export function watch(parent: any, arg?: any) {
 }
 
 export type WatchProxy<T> = [T] extends [Proxyable<T>] // Always proxyable
-  ? { readonly [P in keyof T]-?: WatchProp<T[P]> }
+  ? { readonly [P in keyof T]-?: WatchNode<T[P]> }
   : never
 
 /**
@@ -72,26 +72,37 @@ type NotProxyable = Set<any> | Map<any, any> | Promise<any> | Date
 // TODO: Prevent proxying of arbitrary class instances (once possible).
 type Proxyable<T> = Exclude<Extract<T, object>, NotProxyable>
 
-// The property type of watch proxies.
-type WatchProp<T> = [Proxyable<T>] extends [never] // Never proxyable
-  ? Observable<T>
-  : [T] extends [Proxyable<T>] // Always proxyable
-  ? WatchProxy<T>
-  : [T] extends [NonNullable<T>] // Never nullable
-  ? WatchProxy<Proxyable<T>> | Observable<Exclude<T, Proxyable<T>>>
-  :
-      | NullableWatchProxy<Proxyable<T>>
-      | ([NonNullable<T>] extends [Proxyable<T>] // Either proxyable or nullable
-          ? never
-          : Observable<Exclude<T, Proxyable<T>> | undefined>)
+type WatchNode<T> = {
+  // T is never proxyable
+  1: Observable<T>
+  // T is always proxyable
+  2: WatchProxy<T>
+  // T is maybe proxyable but never nullable
+  3: WatchProxy<Proxyable<T>> | Observable<Exclude<T, Proxyable<T>>>
+  // T is maybe proxyable and maybe nullable
+  4: NullableBranch<Proxyable<T>> | WatchLeaf<T>
+  //
+}[[Proxyable<T>] extends [never]
+  ? 1
+  : [T] extends [Proxyable<T>]
+  ? 2
+  : [T] extends [NonNullable<T>]
+  ? 3
+  : 4]
+
+// When a proxyable node is nullable, its nullability is inherited by every
+// leaf node contained therein. As such, the entire branch becomes nullable.
+type NullableBranch<T> = Solve<
+  { readonly [P in keyof T]-?: WatchNode<T[P] | undefined> }
+>
+
+// Leaf nodes are wrapped in an Observable<T> type.
+type WatchLeaf<T> = [NonNullable<T>] extends [Proxyable<T>]
+  ? never // All non-nullable types are proxyable.
+  : Observable<Exclude<T, Proxyable<T>>>
 
 // For eagerly solving generic types.
 type Solve<T> = T
-
-// This ensures all Observable<T> types have a nullable T.
-type NullableWatchProxy<T> = Solve<
-  { readonly [P in keyof T]-?: WatchProp<T[P] | undefined> }
->
 
 function isWatchable<T extends any>(
   object: T
