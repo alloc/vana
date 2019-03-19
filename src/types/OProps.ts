@@ -5,7 +5,7 @@ import { commit } from '../funcs/commit'
 import { freeze, isFrozen } from '../funcs/freeze'
 import { $O } from '../symbols'
 import { Change } from './Change'
-import { getObservable, isObservable, Observable } from './Observable'
+import { getObservable, Observable } from './Observable'
 
 /** An observable object with observable properties */
 export class OProps<T extends Dictionary<any> = any> extends Observable<T> {
@@ -142,16 +142,18 @@ export class OProp<
   }
 
   private _observeValue(value: T[P]) {
-    let observed = this._observedValue
-    if (observed) {
-      observed._removeObserver(this)
-    }
     // Avoid throwing on stale values.
-    if (isObservable(value)) {
-      observed = value[$O]
-      observed!._addObserver(this)
-      this._observedValue = observed
-    } else if (observed) {
+    let observed = value && value[$O]
+    if (observed) {
+      if (observed !== this._observedValue) {
+        if (this._observedValue) {
+          this._observedValue._removeObserver(this)
+        }
+        observed._addObserver(this)
+        this._observedValue = observed
+      }
+    } else if (this._observedValue) {
+      this._observedValue._removeObserver(this)
       this._observedValue = undefined
     }
   }
