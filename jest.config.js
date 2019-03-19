@@ -1,4 +1,5 @@
 module.exports = {
+  roots: ['spec'],
   collectCoverageFrom: ['src/**/*.ts'],
   moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json'],
   testEnvironment: 'node',
