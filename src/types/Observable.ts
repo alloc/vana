@@ -163,7 +163,9 @@ export function getObservable<T = any>(value: object) {
 
 /** @internal */
 export function getObservers(value: object) {
-  let observable = getObservable(value)
-  if (observable) return observable._observers
+  let observable = Observable.from(value)
+  if (observable) {
+    return observable._observers
+  }
   throw Error('Not observable')
 }
