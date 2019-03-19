@@ -107,9 +107,9 @@ export class Observable<T = any> implements IObserver<T> {
   }
 
   /** @internal */
-  ['_addObserver'](observer: IChangeTarget<T>) {
+  ['_addObserver'](observer: IChangeTarget<T>, prepend?: boolean) {
     if (this._observers) {
-      this._observers.push(observer)
+      this._observers[prepend ? 'unshift' : 'push'](observer)
     } else {
       this.activate()
       this._observers = [observer]

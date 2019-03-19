@@ -149,7 +149,7 @@ export class OProp<
         if (this._observedValue) {
           this._observedValue._removeObserver(this)
         }
-        observed._addObserver(this)
+        observed._addObserver(this, true)
         this._observedValue = observed
       }
     } else if (this._observedValue) {
