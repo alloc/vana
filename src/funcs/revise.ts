@@ -30,9 +30,9 @@ export function revise<T extends object, Args extends any[]>(
  *
  * The observability of the returned object is inherited from the base object.
  */
-export function revise<T extends object, U extends Partial<T>>(
-  base: Exclude<T, Function | ReadonlyArray<any>>,
-  changes: U
+export function revise<T extends object, U extends object>(
+  base: T,
+  changes: { [P in keyof U]-?: P extends keyof T ? T[P] : never }
 ): T
 
 /** @internal */
