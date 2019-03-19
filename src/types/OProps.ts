@@ -107,9 +107,6 @@ export class OProp<
     if (change.target === this) {
       this._observeValue(change.newValue)
       super._onChange(change)
-      if (!this._observedValue) {
-        this._safeDispose()
-      }
     }
     // Changes to `_observedValue` are first handled by our parent.
     else if (change.prop === null) {
@@ -117,28 +114,26 @@ export class OProp<
     }
   }
 
-  /** @internal Dispose only if no observers exist */
-  ['_safeDispose']() {
-    if (!this._observers) {
-      this.dispose()
-    }
-  }
-
   protected activate() {
+    // Already active if the value is observable.
     if (!this._observedValue) {
-      this._observeValue(this.get())
+      let watched = this.parent.watched!
+      let target = watched[this.prop]
+      if (!target) {
+        watched[this.prop] = this
+      } else if (target !== this) {
+        // Never store an OProp longer than you need to.
+        throw Error('Cannot observe an old observable')
+      }
     }
-    // Ensure this instance can receive changes.
-    this.parent.watched![this.prop] = this
   }
 
   protected deactivate() {
-    if (this._observedValue) {
-      this._observedValue._removeObserver(this)
-      this._observedValue = undefined
+    // Skip deactivation unless the value is *not* observable.
+    // Otherwise, deep observability is prevented.
+    if (!this._observedValue) {
+      delete this.parent.watched![this.prop]
     }
-    // Ensure this instance can be garbage collected.
-    delete this.parent.watched![this.prop]
   }
 
   private _observeValue(value: T[P]) {
@@ -149,12 +144,19 @@ export class OProp<
         if (this._observedValue) {
           this._observedValue._removeObserver(this)
         }
+        if (!this._observers) {
+          this.activate()
+        }
         observed._addObserver(this, true)
         this._observedValue = observed
       }
     } else if (this._observedValue) {
       this._observedValue._removeObserver(this)
       this._observedValue = undefined
+
+      if (!this._observers) {
+        this.deactivate()
+      }
     }
   }
 }
