@@ -13,6 +13,8 @@ Observe your immutable state trees. 🌲👀
 
 &nbsp;
 
+### [Example](https://codesandbox.io/s/nnx8zxx03p)
+
 ### [User guide](./docs/intro.md)
 
 ### [React integration](https://github.com/alloc/vana-react)
