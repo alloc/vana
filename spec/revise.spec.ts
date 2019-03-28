@@ -44,7 +44,7 @@ describe('revise()', () => {
     })
 
     it('throws when the base object has a getter', () => {
-      let base = {}
+      let base = {} as { a: number }
       Object.defineProperty(base, 'a', {
         get: () => 1,
         enumerable: true,
@@ -78,7 +78,9 @@ describe('revise()', () => {
     })
 
     it('throws when the base object is a class instance', () => {
-      class Foo {}
+      class Foo {
+        a: number = 0
+      }
       let base = new Foo()
       expect(() => {
         revise(base, { a: 1 })
