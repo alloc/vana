@@ -28,7 +28,7 @@
     "@sucrase/jest-plugin": "2.0.0",
     "@types/jest": "23.3.5",
     "@types/node": "10.11.7",
-    "codecov": "^3.2.0",
+    "codecov": "3.2.0",
     "if-node-version": "1.1.1",
     "jest": "23.6.0",
     "prettier": "1.15.3",
@@ -37,6 +37,6 @@
     "tslint": "5.12.1",
     "tslint-mango": "0.1.10",
     "tslint-no-circular-imports": "0.6.1",
-    "typescript": "^3.4.0-rc"
+    "typescript": "3.4.0-rc"
   }
 }
