@@ -1,9 +1,19 @@
 import { original } from 'immer'
-import { isObservable, o, revise, tap } from '../src'
+import { isObservable, keepAlive, o, revise, tap } from '../src'
 import { getObservable, getObservers } from '../src/types/Observable'
 import { OProps } from '../src/types/OProps'
 
 describe('revise()', () => {
+  it('can be passed a keepAlive object', () => {
+    const state0 = o({ a: 1 })
+    const state = keepAlive(state0)
+    expect(state.a).toBe(1)
+
+    revise(state, { a: 2 })
+    expect(state.a).toBe(2)
+    expect(isObservable(state0)).toBeFalsy()
+  })
+
   describe('when the 2nd argument is a plain object', () => {
     it('cannot revise a stale object', () => {
       let base = o({ a: 1 })
