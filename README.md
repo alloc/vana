@@ -11,7 +11,7 @@ Observe your immutable state trees. 🌲👀
 
 [Read the introduction.](./docs/intro.md)
 
-## The Basics
+## Basic usage
 
 ```ts
 import { o } from 'vana'
@@ -63,7 +63,31 @@ const copy = revise(state, {
 ```
 
 Those are the basics. Here is a sandbox you can play with:
-https://codesandbox.io/s/nnx8zxx03p
 
-Using `vana` with `react` is easy:
-https://github.com/alloc/vana-react
+#### https://codesandbox.io/s/nnx8zxx03p
+
+&nbsp;
+
+## Integrations
+
+- [React](https://github.com/alloc/vana-react) (recommended)
+
+&nbsp;
+
+## Advanced usage
+
+Pass a callback to the `o` function to create a controlled observable.
+
+```ts
+// This pattern is great for memoized subscriptions.
+const foo = o<number>(next => {
+  next(0) // Always provide an initial value.
+  let n = 0
+  let id = setInterval(() => next(++n), 1000)
+  return () => clearInterval(id)
+})
+// Log every new value.
+foo.tap(console.log)
+```
+
+_TODO: Provide more advanced use cases_
