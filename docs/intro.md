@@ -3,8 +3,6 @@
 Enjoy the power of reactive subscriptions without losing the speed and safety of
 immutability.
 
-If you want to see some code, jump to [the basics](./basics.md).
-
 ## Core concepts
 
 Here are the concepts you should understand before trying Vana.

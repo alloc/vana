@@ -9,12 +9,61 @@
 
 Observe your immutable state trees. 🌲👀
 
-🚧 **Not yet ready for production!**
+[Read the introduction.](./docs/intro.md)
 
-&nbsp;
+## The Basics
 
-### [Example](https://codesandbox.io/s/nnx8zxx03p)
+```ts
+import { o } from 'vana'
 
-### [User guide](./docs/intro.md)
+let state = o({
+  /* Any data can go here */
+})
+```
 
-### [React integration](https://github.com/alloc/vana-react)
+The returned `state` is immutable _and_ observable.
+
+Before we make any changes, let's observe our `state` object:
+
+```ts
+import { tap } from 'vana'
+
+// This callback is called synchronously whenever `state` changes.
+tap(state, newState => {
+  state = newState
+})
+```
+
+The first kind of mutation passes a callback to the `revise` function. Any
+changes made within the callback are used to create an immutable copy of our
+`state` object.
+
+```ts
+import { revise } from 'vana'
+
+const base = state
+const copy = revise(state, draft => {
+  /* Mutate our immutable state in here */
+})
+
+assert(base !== copy)
+assert(copy === state) // Our `state` variable is updated.
+```
+
+The `copy` object is now observed by whoever was observing the `base` object,
+and revising the `base` object is now forbidden.
+
+The second kind of mutation passes an object to the `revise` function. This is
+essentially the `Object.assign` of Vana.
+
+```ts
+const copy = revise(state, {
+  /* Any data can go here */
+})
+```
+
+Those are the basics. Here is a sandbox you can play with:
+https://codesandbox.io/s/nnx8zxx03p
+
+Using `vana` with `react` is easy:
+https://github.com/alloc/vana-react
