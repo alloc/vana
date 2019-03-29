@@ -90,4 +90,16 @@ const foo = o<number>(next => {
 foo.tap(console.log)
 ```
 
+Use the `keepAlive` function to make a "living" object out of an observable object. The returned object is a mirror of the observable's current value.
+
+```ts
+import { keepAlive } from 'vana'
+
+let initialState = o({ a: 1 })
+let state = keepAlive(initialState)
+
+revise(initialState, { a: 2 })
+assert(state.a === 2)
+```
+
 _TODO: Provide more advanced use cases_
