@@ -9,7 +9,7 @@
     "lib"
   ],
   "scripts": {
-    "build": "tsc -p ./src",
+    "build": "rimraf ./lib && tsc -p ./src",
     "lint": "tsc -p . && tslint -p .",
     "test": "jest",
     "test:cov": "jest --coverage && codecov"
@@ -34,6 +34,7 @@
     "prettier": "1.15.3",
     "prettier-tslint": "0.4.2",
     "pretty-quick": "1.10.0",
+    "rimraf": "2.6.3",
     "tslint": "5.12.1",
     "tslint-mango": "0.1.10",
     "tslint-no-circular-imports": "0.6.1",
