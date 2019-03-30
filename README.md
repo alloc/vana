@@ -76,6 +76,15 @@ Those are the basics. Here is a sandbox you can play with:
 
 ## Advanced usage
 
+Pass an immutable object to the `o` function to create an observable copy.
+
+```ts
+const base = o({ a: 1 })
+const copy = o(base)
+
+assert(base !== copy)
+```
+
 Pass a callback to the `o` function to create a controlled observable.
 
 ```ts
