@@ -9,7 +9,7 @@
 
 Observe your immutable state trees. 🌲👀
 
-[Read the introduction.](./docs/intro.md)
+### [Read the introduction.](./docs/intro.md)
 
 ## Basic usage
 
