@@ -64,7 +64,16 @@ const copy = revise(state, {
 
 Those are the basics. Here is a sandbox you can play with:
 
-#### https://codesandbox.io/s/nnx8zxx03p
+#### https://codesandbox.io/s/z33pzx31wp
+#### https://github.com/alloc/vana-sandbox
+
+&nbsp;
+
+## Install
+
+```
+yarn add vana @vana/react
+```
 
 &nbsp;
 
@@ -128,6 +137,9 @@ let state = keepAlive(initialState)
 
 revise(initialState, { a: 2 })
 assert(state.a === 2)
+
+// Be sure to call dispose when appropriate.
+state.dispose()
 ```
 
 &nbsp;
