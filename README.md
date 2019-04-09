@@ -76,14 +76,29 @@ Those are the basics. Here is a sandbox you can play with:
 
 ## Advanced usage
 
-Pass an immutable object to the `o` function to create an observable copy.
+Here are some advanced use cases.
+
+### Cloning an observable object
+
+Clone an observable object by passing it to the `o` function.
 
 ```ts
 const base = o({ a: 1 })
 const copy = o(base)
 
+// The "copy" has its own observable identity.
+assert(isObservable(copy))
 assert(base !== copy)
+
+// The "base" is still observable and revisable.
+assert(isObservable(base))
+tap(base, console.log)
+revise(base, { a: 2 })
 ```
+
+&nbsp;
+
+### Controlled observables
 
 Pass a callback to the `o` function to create a controlled observable.
 
@@ -99,6 +114,10 @@ const foo = o<number>(next => {
 foo.tap(console.log)
 ```
 
+&nbsp;
+
+### The `keepAlive` function
+
 Use the `keepAlive` function to make a "living" object out of an observable object. The returned object is a mirror of the observable's current value.
 
 ```ts
@@ -110,5 +129,32 @@ let state = keepAlive(initialState)
 revise(initialState, { a: 2 })
 assert(state.a === 2)
 ```
+
+&nbsp;
+
+### Array helpers
+
+Vana provides [an API](https://github.com/alloc/vana/blob/master/src/array.ts) for array operations:
+
+```ts
+import { append, prepend, insert, concat, remove } from 'vana/lib/array'
+
+// Append one or more values to a copy of the given array.
+append(arr, ...values)
+
+// Prepend one or more values to a copy of the given array.
+prepend(arr, ...values)
+
+// Insert one or more values into a copy of the given array.
+insert(arr, index, ...values)
+
+// Merge one or more arrays into a copy of the given array.
+concat(arr, ...values)
+
+// Remove one or more values from a copy of the given array.
+remove(arr, index, (count = 1))
+```
+
+&nbsp;
 
 _TODO: Provide more advanced use cases_
