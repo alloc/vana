@@ -27,7 +27,7 @@ property. `Observable` instances only remember the latest revision.
 
 ### 3. Observable copies are "revisions"
 
-Observable objects are "revised" by the [`revise`](revise) and [`produce`](produce) functions.
+Observable objects are "revised" by the [`revise`][revise] and [`produce`][produce] functions.
 The "revisions" are observable and immutable.
 
 [revise]: https://github.com/alloc/vana/blob/c6da35c21bf5c4139e18b79665c2a38d530592f8/src/funcs/revise.ts#L38-L47
@@ -51,13 +51,14 @@ require deep observability.
 ### 6. Structural sharing is used (thanks to Immer)
 
 [Immer] lets users write [imperative] code that produces a mutated copy of any
-immutable object. [Structural sharing](ss) is used to avoid redundant cloning.
+immutable object.
+[Structural sharing][ss] is used to avoid redundant cloning.
 
 The entire API of Immer is re-exported by Vana ([see
-here](immer-api)).
+here][immer-api]).
 
 [immer]: https://github.com/mweststrate/immer
-[immer-api]: https://github.com/alloc/vana/blob/master/src/index.ts
+[immer-api]: https://github.com/alloc/vana/blob/3a5bce2b16a8d672bfa489648f47968ce80e8a2c/src/index.ts#L13-L15
 [imperative]: https://en.wikipedia.org/wiki/Imperative_programming
 [ss]: http://raganwald.com/2019/01/14/structural-sharing-and-copy-on-write.html
 
