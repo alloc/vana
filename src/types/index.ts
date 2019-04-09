@@ -5,7 +5,7 @@ import { Observable } from './Observable'
 export type Observed<T> = T extends Observable<infer U> ? U : Tapped<T>
 
 export { Observable, IObserver } from './Observable'
-export { OBinding } from './OBinding'
+export { OBinding, Driver } from './OBinding'
 export { OPath } from './OPath'
 export { OPromise } from './OPromise'
 export { OProps } from './OProps'
