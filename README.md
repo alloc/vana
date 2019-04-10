@@ -1,4 +1,4 @@
-# vana
+<img src="https://github.com/alloc/vana/raw/master/logo.png" width="260" />
 
 [![npm](https://img.shields.io/npm/v/vana.svg)](https://www.npmjs.com/package/vana)
 [![Build status](https://travis-ci.org/alloc/vana.svg?branch=master)](https://travis-ci.org/alloc/vana)
@@ -65,6 +65,7 @@ const copy = revise(state, {
 Those are the basics. Here is a sandbox you can play with:
 
 #### https://codesandbox.io/s/z33pzx31wp
+
 #### https://github.com/alloc/vana-sandbox
 
 &nbsp;

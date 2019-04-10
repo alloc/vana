@@ -1,3 +1,5 @@
+<img src="https://github.com/alloc/vana/raw/master/logo.png" width="260" />
+
 # Introduction
 
 Enjoy the power of [transparent](https://stackoverflow.com/a/17385138/2228559) [subscriptions](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern) without losing the speed and safety of
