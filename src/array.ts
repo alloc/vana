@@ -1,7 +1,7 @@
 import { AnyArray } from './common'
 import { become } from './funcs/become'
+import { commitArray } from './funcs/commitArray'
 import { commitIndices } from './funcs/commitIndices'
-import { commitLength } from './funcs/commitLength'
 
 export function append<T extends AnyArray>(
   base: T,
@@ -14,7 +14,7 @@ export function append(base: AnyArray, ...values: any[]) {
   copy.push(...values)
   if (become(base, copy)) {
     commitIndices(base, copy, base.length, values.length)
-    commitLength(base, copy)
+    commitArray(base, copy)
   }
   return copy
 }
@@ -29,7 +29,7 @@ export function prepend(base: AnyArray, ...values: any[]) {
   const copy = values.concat(base)
   if (become(base, copy)) {
     commitIndices(base, copy, 0, copy.length)
-    commitLength(base, copy)
+    commitArray(base, copy)
   }
   return copy
 }
@@ -45,7 +45,7 @@ export function insert(base: AnyArray, index: number, ...values: any[]) {
   const copy = base.slice(0, index).concat(values, base.slice(index))
   if (become(base, copy)) {
     commitIndices(base, copy, index, copy.length - index)
-    commitLength(base, copy)
+    commitArray(base, copy)
   }
   return copy
 }
@@ -64,7 +64,7 @@ export function concat(base: AnyArray, ...values: any[]) {
   }
   if (become(base, copy)) {
     commitIndices(base, copy, base.length, delta)
-    commitLength(base, copy)
+    commitArray(base, copy)
   }
   return copy
 }
@@ -87,7 +87,7 @@ export function remove<T extends AnyArray>(
 
   if (become(base, copy)) {
     commitIndices(base, copy, index, base.length - index)
-    commitLength(base, copy)
+    commitArray(base, copy)
   }
   return copy
 }
