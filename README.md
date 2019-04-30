@@ -186,6 +186,10 @@ concat(arr, ...values)
 remove(arr, index, (count = 1))
 ```
 
+These functions work for both observable values and normal values.
+
+They return a modified copy of the given array.
+
 &nbsp;
 
 ### Custom immutable classes
