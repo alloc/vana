@@ -197,7 +197,7 @@ They return a modified copy of the given array.
 Any class can be made compatible with Vana's cloning logic.
 
 ```ts
-import { immerable, revise, keepAlive, latest } from 'vana'
+import { immerable, o, revise, keepAlive, latest } from 'vana'
 
 class Foo {
   readonly bar: number = 0
@@ -211,7 +211,7 @@ class Foo {
   }
 }
 
-let foo = new Foo()
+let foo = o(new Foo())
 assert(Object.isFrozen(foo))
 assert(foo.bar === 0)
 
