@@ -2,6 +2,7 @@ export { o } from './funcs/o'
 export { tap, Tapped } from './funcs/tap'
 export { watch, WatchProxy } from './funcs/watch'
 export { revise } from './funcs/revise'
+export { latest } from './funcs/latest'
 export { keepAlive } from './funcs/keepAlive'
 export {
   Observable,
