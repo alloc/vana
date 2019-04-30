@@ -126,6 +126,24 @@ foo.tap(console.log)
 
 &nbsp;
 
+### The `latest` function
+
+Give any value and receive the latest revision (if possible), else return it as-is.
+
+```ts
+const o1 = o({ foo: true })
+const o2 = revise(o1, { foo: false })
+const o3 = revise(o2, { foo: true })
+
+assert(o1 !== o3)
+assert(latest(o1) === o3)
+
+// Trash in, trash out
+assert(latest(1) === 1)
+```
+
+&nbsp;
+
 ### The `keepAlive` function
 
 Use the `keepAlive` function to make a "living" object out of an observable object. The returned object is a mirror of the observable's current value.
