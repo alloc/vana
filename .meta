@@ -1,6 +1,0 @@
-{
-  "projects": {
-    "packages/vana-domain": "https://github.com/aleclarson/vana-domain.git",
-    "packages/vana-react": "https://github.com/alloc/vana-react.git"
-  }
-}
