@@ -154,10 +154,14 @@ import { keepAlive } from 'vana'
 let initialState = o({ a: 1 })
 let state = keepAlive(initialState)
 
-revise(initialState, { a: 2 })
+// The latest revision is always reflected
+const lastState = revise(initialState, { a: 2 })
 assert(state.a === 2)
 
-// Be sure to call dispose when appropriate.
+// Can be passed to `latest`
+assert(latest(state) === lastState)
+
+// Be sure to call dispose when appropriate
 state.dispose()
 ```
 
