@@ -20,7 +20,7 @@ export function keepAlive<T extends object>(initialState: T): Disposable<T> {
     throw Error('Expected an observable object')
   }
   const target: any = { state: initialState }
-  const dispose = tap(initialState, nextState => {
+  const observer = tap(initialState, nextState => {
     target.state = nextState
   })
   return new Proxy(target, {
@@ -30,7 +30,12 @@ export function keepAlive<T extends object>(initialState: T): Disposable<T> {
         return new Proxy(value, observableProxy)
       }
       if (prop == 'dispose') {
-        return dispose
+        return () => {
+          observer.dispose()
+          if (typeof value == 'function') {
+            value.call(target.state)
+          }
+        }
       }
       // Auto-bind methods from the prototype.
       if (!has(target.state, prop) && typeof value == 'function') {
