@@ -188,4 +188,45 @@ remove(arr, index, (count = 1))
 
 &nbsp;
 
+### Custom immutable classes
+
+Any class can be made compatible with Vana's cloning logic.
+
+```ts
+import { immerable, revise, keepAlive, latest } from 'vana'
+
+class Foo {
+  readonly bar: number = 0
+
+  // Let `Foo` instances be assumed readonly
+  static [immerable] = true
+
+  // Mutate yourself with `revise`
+  setBar(bar: number) {
+    return revise(this, { bar })
+  }
+}
+
+let foo = new Foo()
+assert(Object.isFrozen(foo))
+assert(foo.bar === 0)
+
+foo = foo.setBar(1)
+assert(foo.bar === 1)
+
+// works with `keepAlive`
+const fooLatest = keepAlive(foo)
+
+const foo3 = foo.setBar(2)
+assert(foo3 !== foo)
+assert(foo3.bar === 2)
+assert(fooLatest.bar === 2)
+
+// and with `latest`
+foo = latest(foo)
+assert(foo === foo3)
+```
+
+&nbsp;
+
 _TODO: Provide more advanced use cases_
