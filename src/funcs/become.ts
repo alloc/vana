@@ -6,8 +6,10 @@ import { freeze, isFrozen } from './freeze'
 /**
  * Mark `copy` as the "next revision" of `base` (which makes `copy` observable).
  *
- * Returns `copy` only if `base` is observable (and `copy` is frozen only if
- * `base` is). Else return undefined.
+ * - Returns `copy` only if `base` is observable.
+ * - Freeze `copy` only if `base` is frozen.
+ * - Do nothing if `base` is not observable.
+ * - Throws if `base` is an old revision.
  */
 export function become<T extends object>(base: T, copy: T): T | undefined {
   const target = getObservable(base)
