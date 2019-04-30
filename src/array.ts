@@ -42,6 +42,7 @@ export function insert<T extends AnyArray>(
 ): T
 
 export function insert(base: AnyArray, index: number, ...values: any[]) {
+  while (index < 0) index += base.length
   const copy = base.slice(0, index).concat(values, base.slice(index))
   if (become(base, copy)) {
     commitIndices(base, copy, index, copy.length - index)
@@ -74,6 +75,7 @@ export function remove<T extends AnyArray>(
   index: number,
   count: number = 1
 ): T {
+  while (index < 0) index += base.length
   if (count <= 0 || index >= base.length || index + count <= 0) {
     return base
   }
