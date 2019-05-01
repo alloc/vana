@@ -34,11 +34,11 @@ use `ReadonlyArray<T>` instead of `Array<T>` in your function signatures.
 Observable objects can be passed to any existing code without issue, as long as
 they don't try to mutate the object. An observable object can be cloned by
 passing it to the
-[`o`](https://github.com/alloc/vana/blob/c6da35c21bf5c4139e18b79665c2a38d530592f8/src/index.ts#L1)
+[`o`](https://github.com/alloc/vana/blob/0af1f63b29b3c2434b11d5f014282fc07a2b95e7/src/core/o.ts#L18-L46)
 function.
 
 Every observable object has an `Observable` instance as its
-[`$O`](https://github.com/alloc/vana/blob/c6da35c21bf5c4139e18b79665c2a38d530592f8/src/symbols.ts#L1-L2)
+[`$O`](https://github.com/alloc/vana/blob/0af1f63b29b3c2434b11d5f014282fc07a2b95e7/src/shared/symbols.ts#L1-L2)
 property. `Observable` instances only remember the latest revision.
 
 ### 3. Observable copies are "revisions"
@@ -46,8 +46,8 @@ property. `Observable` instances only remember the latest revision.
 Observable objects are "revised" by the [`revise`][revise] and [`produce`][produce] functions.
 The "revisions" are observable and immutable.
 
-[revise]: https://github.com/alloc/vana/blob/c6da35c21bf5c4139e18b79665c2a38d530592f8/src/funcs/revise.ts#L38-L47
-[produce]: https://github.com/alloc/vana/blob/c6da35c21bf5c4139e18b79665c2a38d530592f8/src/index.ts#L15
+[revise]: https://github.com/alloc/vana/blob/0af1f63b29b3c2434b11d5f014282fc07a2b95e7/src/core/revise.ts#L13-L35
+[produce]: https://github.com/alloc/vana/blob/0af1f63b29b3c2434b11d5f014282fc07a2b95e7/src/shared/immer.ts#L41
 
 ### 4. Observability is temporary
 
