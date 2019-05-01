@@ -1,7 +1,6 @@
-import { definePrivate } from '../common'
-import { $O } from '../symbols'
-import { getObservable } from '../types/Observable'
+import { $O, definePrivate } from '../shared'
 import { freeze, isFrozen } from './freeze'
+import { getObservable } from './Observable'
 
 /**
  * Mark `copy` as the "next revision" of `base` (which makes `copy` observable).

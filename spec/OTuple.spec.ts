@@ -1,6 +1,4 @@
-import { isObservable, o, revise, tap } from '../src'
-import { getObservers } from '../src/types/Observable'
-import { OTuple } from '../src/types/OTuple'
+import { getObservers, isObservable, o, OTuple, revise, tap } from '../src'
 
 describe('new OTuple()', () => {
   it('observes its elements deeply', () => {

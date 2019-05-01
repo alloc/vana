@@ -1,8 +1,7 @@
 import { Draft, Immer, IProduce } from 'immer'
-import { definePrivate, isArray } from './common'
-import { commit } from './funcs/commit'
-import { $O } from './symbols'
-import { Observable } from './types/Observable'
+import { $O, definePrivate, isArray } from '.'
+import { commit } from '../core/commit'
+import { Observable } from '../core/Observable'
 
 /** Function that modifies a draft */
 export type Recipe<

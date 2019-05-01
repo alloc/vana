@@ -1,8 +1,7 @@
-import { IDisposable, shallowCopy } from '../common'
 import { getDebug } from '../debug'
-import { commit } from '../funcs/commit'
-import { $O } from '../symbols'
+import { $O, IDisposable, shallowCopy } from '../shared'
 import { Change, IChangeTarget } from './Change'
+import { commit } from './commit'
 
 /**
  * Observers are disposable "change targets".
@@ -43,9 +42,9 @@ export class Observable<T = any> implements IObserver<T> {
    * When the source of truth is a getter, this method only notifies observers.
    * Otherwise, this method also updates the current value.
    */
-  set(newValue: T) {
+  set(newValue: T, force?: boolean) {
     let oldValue = this.get()
-    if (newValue !== oldValue) {
+    if (force || newValue !== oldValue) {
       if (!this._get) {
         this._value = newValue
       }

@@ -1,5 +1,5 @@
 import { ImmerState } from 'immer'
-import { AnyProp } from '../common'
+import { AnyProp } from '../shared'
 
 /** An observed change */
 export type Change<T = any> =

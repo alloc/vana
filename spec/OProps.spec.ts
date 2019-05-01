@@ -1,6 +1,13 @@
-import { o, revise, tap, watch } from '../src'
-import { getObservable, getObservers } from '../src/types/Observable'
-import { OProp, OProps } from '../src/types/OProps'
+import {
+  getObservable,
+  getObservers,
+  o,
+  OProp,
+  OProps,
+  revise,
+  tap,
+  watch,
+} from '../src'
 
 describe('new OProps()', () => {
   it('observes deep changes', () => {

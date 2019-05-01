@@ -1,10 +1,9 @@
 import { isDraft, isDraftable } from 'immer'
-import { each, getProto, has } from '../common'
-import { produce, Recipe } from '../immer'
-import { $O } from '../symbols'
-import { OProps } from '../types/OProps'
+import { $O, each, getProto, has } from '../shared'
+import { produce, Recipe } from '../shared/immer'
 import { commit } from './commit'
 import { freeze, isFrozen } from './freeze'
+import { OProps } from './OProps'
 
 const {
   getOwnPropertyDescriptor: getPropDesc,

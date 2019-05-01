@@ -1,7 +1,14 @@
 import { original } from 'immer'
-import { isObservable, keepAlive, o, revise, tap } from '../src'
-import { getObservable, getObservers } from '../src/types/Observable'
-import { OProps } from '../src/types/OProps'
+import {
+  getObservable,
+  getObservers,
+  isObservable,
+  keepAlive,
+  o,
+  OProps,
+  revise,
+  tap,
+} from '../src'
 
 describe('revise()', () => {
   it('can be passed a keepAlive object', () => {

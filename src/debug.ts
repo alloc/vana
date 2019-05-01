@@ -1,4 +1,4 @@
-import { $DEBUG, $O } from './symbols'
+import { $DEBUG, $O } from './shared'
 
 /** Global debug mode */
 let isDebug = false

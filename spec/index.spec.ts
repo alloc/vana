@@ -1,14 +1,14 @@
 import {
   freeze,
+  getObservable,
   isObservable,
   o,
+  OBinding,
   Observable,
+  OPromise,
   revise,
   setAutoFreeze,
 } from '../src'
-import { OBinding } from '../src/types/OBinding'
-import { getObservable } from '../src/types/Observable'
-import { OPromise } from '../src/types/OPromise'
 
 const { isFrozen } = Object
 

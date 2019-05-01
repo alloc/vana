@@ -1,5 +1,5 @@
 import { _, assert } from 'spec.ts'
-import { Change } from '../src/types/Change'
+import { Change } from '../src'
 
 // TODO: fix generics with the Change type?
 export function usage<T>() {

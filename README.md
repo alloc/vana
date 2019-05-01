@@ -73,14 +73,14 @@ Those are the basics. Here is a sandbox you can play with:
 ## Install
 
 ```
-yarn add vana @vana/react
+yarn add vana
 ```
 
 &nbsp;
 
 ## Integrations
 
-- [React](https://github.com/alloc/vana-react) (recommended)
+- [React](./src/react/README.md) (recommended)
 
 &nbsp;
 

@@ -1,5 +1,4 @@
-import { AnyArray, isObject } from '../common'
-import { $O } from '../symbols'
+import { $O, AnyArray, isObject } from '../shared'
 import { IChangeTarget } from './Change'
 import { getObservable, Observable } from './Observable'
 

@@ -1,6 +1,6 @@
-import { IThenable } from '../common'
-import { getObservable, IObserver } from '../types/Observable'
-import { PromiseState } from '../types/OPromise'
+import { IThenable } from '../shared'
+import { getObservable, IObserver } from './Observable'
+import { PromiseState } from './OPromise'
 
 export type Tapped<T> = T extends IThenable<infer U> ? PromiseState<U> : T
 

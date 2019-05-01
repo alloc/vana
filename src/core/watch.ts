@@ -6,11 +6,11 @@ import {
   Dictionary,
   each,
   isArray,
-} from '../common'
-import { immer } from '../immer'
-import { $O } from '../symbols'
-import { getObservable, Observable } from '../types/Observable'
-import { OPath } from '../types/OPath'
+} from '../shared'
+import { $O } from '../shared'
+import { immer } from '../shared/immer'
+import { getObservable, Observable } from './Observable'
+import { OPath } from './OPath'
 
 /**
  * Create a proxy that mimics the shape of the given object, but its values are

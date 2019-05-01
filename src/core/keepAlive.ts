@@ -1,6 +1,5 @@
-import { Disposable, has } from '../common'
-import { $O } from '../symbols'
-import { isObservable } from '../types/Observable'
+import { $O, Disposable, has } from '../shared'
+import { isObservable } from './Observable'
 import { tap } from './tap'
 
 const returnTrue = () => true

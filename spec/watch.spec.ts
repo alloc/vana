@@ -1,7 +1,14 @@
-import { o, Observable, revise, tap, watch } from '../src'
-import { immer } from '../src/immer'
-import { getObservable, getObservers } from '../src/types/Observable'
-import { OPath } from '../src/types/OPath'
+import {
+  getObservable,
+  getObservers,
+  o,
+  Observable,
+  OPath,
+  revise,
+  tap,
+  watch,
+} from '../src'
+import { immer } from '../src/shared/immer'
 
 createTests(true, 'es2015+')
 createTests(false, 'legacy')

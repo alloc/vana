@@ -1,4 +1,4 @@
-import { $O } from '../symbols'
+import { $O } from '../shared'
 
 /**
  * Get the latest revision of the given value.

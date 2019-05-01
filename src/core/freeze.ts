@@ -1,4 +1,4 @@
-import { immer } from '../immer'
+import { immer } from '../shared/immer'
 
 /** Frozen object type */
 export type Frozen<T extends object> = T extends ReadonlyArray<infer U>

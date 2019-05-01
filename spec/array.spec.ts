@@ -1,7 +1,16 @@
-import { o, revise, watch } from '../src'
-import { append, concat, insert, prepend, remove } from '../src/array'
-import { $O } from '../src/symbols'
-import { Change, Observable } from '../src/types'
+import {
+  $O,
+  append,
+  Change,
+  concat,
+  insert,
+  o,
+  Observable,
+  prepend,
+  remove,
+  revise,
+  watch,
+} from '../src'
 
 describe('Watching arrays:', () => {
   it('can watch an index', () => {

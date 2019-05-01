@@ -1,4 +1,4 @@
-import { AnyProp, Dictionary, isPlainObject } from '../common'
+import { AnyProp, Dictionary, isPlainObject } from '../shared'
 import { Change } from './Change'
 import { getObservable, isObservable, Observable } from './Observable'
 

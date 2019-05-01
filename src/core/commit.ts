@@ -1,5 +1,5 @@
 import { ImmerState } from 'immer'
-import { IChangeTarget } from '../types/Change'
+import { IChangeTarget } from './Change'
 
 /** Notify observers of a change to the root value */
 export function commit<T, TT extends T>(

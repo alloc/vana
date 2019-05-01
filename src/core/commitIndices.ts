@@ -1,6 +1,5 @@
-import { AnyArray } from '../common'
-import { $O } from '../symbols'
-import { Observable } from '../types'
+import { Observable } from '.'
+import { $O, AnyArray } from '../shared'
 import { commit } from './commit'
 
 /**

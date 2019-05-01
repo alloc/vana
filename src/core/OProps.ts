@@ -1,10 +1,9 @@
 // tslint:disable:variable-name
 import { isDraft, isDraftable } from 'immer'
-import { definePrivate, Dictionary, isObject, shallowCopy } from '../common'
-import { commit } from '../funcs/commit'
-import { freeze, isFrozen } from '../funcs/freeze'
-import { $O } from '../symbols'
+import { $O, definePrivate, Dictionary, isObject, shallowCopy } from '../shared'
 import { Change } from './Change'
+import { commit } from './commit'
+import { freeze, isFrozen } from './freeze'
 import { getObservable, Observable } from './Observable'
 
 /** An observable object with observable properties */

@@ -1,3 +1,5 @@
+export * from './symbols'
+
 /** Resolve object intersections */
 export type Id<T> = { [P in keyof T]: T[P] }
 

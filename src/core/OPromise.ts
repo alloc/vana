@@ -1,8 +1,7 @@
 /* tslint:disable:unified-signatures */
-import { definePrivate, isThenable, IThenable, noop } from '../common'
-import { commit } from '../funcs/commit'
-import { freeze } from '../funcs/freeze'
-import { $O } from '../symbols'
+import { $O, definePrivate, isThenable, IThenable, noop } from '../shared'
+import { commit } from './commit'
+import { freeze } from './freeze'
 import { getObservable, Observable } from './Observable'
 
 export type PromiseState<T = any> =

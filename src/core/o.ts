@@ -6,12 +6,12 @@ import {
   isArray,
   isObject,
   isThenable,
-} from '../common'
-import { $O } from '../symbols'
-import { Driver, OBinding } from '../types/OBinding'
-import { isObservable, Observable } from '../types/Observable'
-import { bindPromise } from '../types/OPromise'
-import { bindProps } from '../types/OProps'
+} from '../shared'
+import { $O } from '../shared'
+import { Driver, OBinding } from './OBinding'
+import { isObservable, Observable } from './Observable'
+import { bindPromise } from './OPromise'
+import { bindProps } from './OProps'
 
 /**
  * Create an Observable with the given driver.
