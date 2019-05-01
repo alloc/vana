@@ -44,9 +44,9 @@ export function o<T extends {}>(
 export function o<T>(value: T): [T] extends [Any] ? any : Observable<T>
 
 /** @internal */
-export function o(arg: unknown) {
+export function o(arg: any) {
   if (isFunction(arg)) {
-    return new OBinding(arg as any)
+    return new OBinding(arg)
   }
   if (isObject(arg)) {
     if (isThenable(arg)) {
