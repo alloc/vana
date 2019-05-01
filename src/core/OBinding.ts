@@ -1,6 +1,5 @@
 import { IDisposable } from '../shared'
 import { Observable } from './Observable'
-import { o } from './o';
 
 export type Driver<T = any> = (
   next: (value: T) => void
@@ -21,7 +20,7 @@ export class OBinding<T = any> extends Observable<T> {
   }
 
   protected activate() {
-    const result = this.driver(newValue => this.set(o(newValue), true))
+    const result = this.driver(newValue => this.set(newValue, true))
     if (result) {
       this._binding = typeof result == 'function' ? { dispose: result } : result
     }
