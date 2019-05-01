@@ -25,9 +25,10 @@ of rules that Vana follows.
 
 ### 1. Immutability is required
 
-For simplicity and safety, Vana enforces deep immutability. Any objects given to
-Vana are returned with an immutable type. To avoid compiler errors, be sure to
-use `ReadonlyArray<T>` instead of `Array<T>` in your function signatures.
+For its safety and cheap memoization, Vana enforces deep immutability. Any
+objects given to Vana are returned with an immutable type. To avoid compiler
+errors, be sure to use `readonly T[]` instead of `T[]` in your function
+signatures.
 
 ### 2. Observability is transparent
 
