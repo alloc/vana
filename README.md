@@ -198,10 +198,12 @@ The property value is deeply observed if possible.
 
 ### Array helpers
 
-Vana provides [an API](https://github.com/alloc/vana/blob/master/src/array.ts) for array operations:
+These functions are for working with immutable arrays. Each function works for
+any array regardless of mutability. They always return a modified copy of the
+given array (or the given array if no changes were made).
 
 ```ts
-import { append, prepend, insert, concat, remove } from 'vana/lib/array'
+import { append, prepend, insert, concat, remove } from 'vana'
 
 // Append one or more values to a copy of the given array.
 append(arr, ...values)
@@ -218,10 +220,6 @@ concat(arr, ...values)
 // Remove one or more values from a copy of the given array.
 remove(arr, index, (count = 1))
 ```
-
-These functions work for both observable values and normal values.
-
-They return a modified copy of the given array.
 
 &nbsp;
 
