@@ -4,7 +4,7 @@ Helpers for `vana` in `react`
 
 &nbsp;
 
-### useO
+## useO
 
 Create an observable value and memoize it.
 
@@ -34,7 +34,9 @@ const windowSize = useO(next => {
 
 &nbsp;
 
-### useObserved
+## useObserved
+
+Deeply observe an object (or property) and re-render whenever it changes.
 
 ```ts
 // Observe an object
@@ -55,7 +57,9 @@ const len = useObserved(props.arr, 'length')
 
 &nbsp;
 
-### useObserver
+## useObserver
+
+Attach an observer to an observable value.
 
 ```ts
 useObserver(props.obj, obj => {
@@ -65,7 +69,13 @@ useObserver(props.obj, obj => {
 
 &nbsp;
 
-### useDerived
+## useDerived
+
+Derive a value from the given inputs.
+
+Each input is observed if possible.
+
+Re-render when the computed value changes.
 
 ```ts
 const c = useDerived((a, b) => a + b, [props.a, props.b])
@@ -73,7 +83,11 @@ const c = useDerived((a, b) => a + b, [props.a, props.b])
 
 &nbsp;
 
-### useMemos
+## useMemos
+
+Memoize an array of anything.
+
+The given array is observed if possible.
 
 ```tsx
 const arr = useMemos(props.items, item => <View>{item}</View>)
@@ -81,7 +95,14 @@ const arr = useMemos(props.items, item => <View>{item}</View>)
 
 &nbsp;
 
-### useKeyedMemos
+## useKeyedMemos
+
+For each item, memoize the return value of the 2nd function with the key
+returned by the 1st function.
+
+Each memoized value lasts until its item is removed from the array.
+
+The given array is observed if possible.
 
 ```tsx
 const arr = useKeyedMemos(
