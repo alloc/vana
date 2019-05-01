@@ -25,7 +25,9 @@ export function o<T = unknown>(driver: Driver<T>): Observable<T>
 /**
  * ⚠️ Arbitrary function values are not supported.
  */
-export function o<T extends Function>(value: any extends T ? never : T): never
+export function o<T extends Function>(
+  value: [T] extends [Any] ? never : T
+): never
 
 /**
  * Make the given object readonly and observable, then return it.
@@ -35,7 +37,7 @@ export function o<T extends Function>(value: any extends T ? never : T): never
  * An error is thrown when the given object is both frozen and _not_ observable.
  */
 export function o<T extends {}>(
-  root: any extends T ? never : T
+  root: [T] extends [Any] ? never : T
 ): Immutable<T extends never[] ? any[] : T>
 
 /**
