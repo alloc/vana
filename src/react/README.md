@@ -39,6 +39,8 @@ const windowSize = useO(next => {
 Deeply observe an object (or property) and re-render whenever it changes.
 
 ```ts
+import { useObserved } from 'vana'
+
 // Observe an object
 const foo = useObserved(props.obj)
 
@@ -62,6 +64,8 @@ const len = useObserved(props.arr, 'length')
 Attach an observer to an observable value.
 
 ```ts
+import { useObserver } from 'vana'
+
 useObserver(props.obj, obj => {
   console.log('changed:', obj)
 })
@@ -78,6 +82,8 @@ Each input is observed if possible.
 Re-render when the computed value changes.
 
 ```ts
+import { useDerived } from 'vana'
+
 const c = useDerived((a, b) => a + b, [props.a, props.b])
 ```
 
@@ -90,6 +96,8 @@ Memoize an array of anything.
 The given array is observed if possible.
 
 ```tsx
+import { useMemos } from 'vana'
+
 const arr = useMemos(props.items, item => <View>{item}</View>)
 ```
 
@@ -105,6 +113,8 @@ Each memoized value lasts until its item is removed from the array.
 The given array is observed if possible.
 
 ```tsx
+import { useKeyedMemos } from 'vana'
+
 const arr = useKeyedMemos(
   props.items,
   item => item.key,
