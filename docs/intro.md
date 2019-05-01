@@ -35,12 +35,15 @@ signatures.
 Observable objects can be passed to any existing code without issue, as long as
 they don't try to mutate the object. An observable object can be cloned by
 passing it to the
-[`o`](https://github.com/alloc/vana/blob/0af1f63b29b3c2434b11d5f014282fc07a2b95e7/src/core/o.ts#L18-L46)
+[`o`][o]
 function.
 
 Every observable object has an `Observable` instance as its
-[`$O`](https://github.com/alloc/vana/blob/0af1f63b29b3c2434b11d5f014282fc07a2b95e7/src/shared/symbols.ts#L1-L2)
+[`$O`][$o]
 property. `Observable` instances only remember the latest revision.
+
+[o]: https://github.com/alloc/vana/blob/0af1f63b29b3c2434b11d5f014282fc07a2b95e7/src/core/o.ts#L18-L46
+[$o]: https://github.com/alloc/vana/blob/0af1f63b29b3c2434b11d5f014282fc07a2b95e7/src/shared/symbols.ts#L1-L2
 
 ### 3. Observable copies are "revisions"
 
