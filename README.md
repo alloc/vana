@@ -167,6 +167,35 @@ state.dispose()
 
 &nbsp;
 
+### The `watch` function
+
+This function lets you watch any property path in a state tree.
+
+```ts
+import { watch } from 'vana'
+
+// An observable that updates when `obj.a.b.c` is changed
+const prop = watch(obj).a.b.c
+
+// Run a function when the property value is changed
+const observer = prop.tap(console.log)
+
+// Get the current property value
+prop.get()
+
+// Shallow properties can be observed more efficiently
+const prop = watch(obj, 'a')
+
+// You can use a selector function if you want
+const prop = watch(obj, obj => obj.a.b.c)
+```
+
+Every property in the path is observed.
+
+The property value is deeply observed if possible.
+
+&nbsp;
+
 ### Array helpers
 
 Vana provides [an API](https://github.com/alloc/vana/blob/master/src/array.ts) for array operations:
