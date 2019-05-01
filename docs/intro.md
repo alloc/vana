@@ -8,8 +8,9 @@ appearance. The only exception to that rule is that all objects are made
 
 &nbsp;
 
-**What does immutability do?** You must copy frozen objects before you can mutate
-them, and you get deep equality checks for the price of a `===` check. [Read this][what-is-immutable]
+**What does immutability do?** You get deep equality checks for the price of a
+`===` check, objects are frozen and must be mutated with specialized functions.
+[Read this!][what-is-immutable]
 
 **What does observability do?** It lets you subscribe to changes in any data. In
 the case of Vana, you're subscribing to future copies of an immutable state
@@ -19,14 +20,14 @@ tree (or a leaf thereof).
 
 &nbsp;
 
-👋 Make sure to try the ⚛️**React integration**! [Learn more][react]
+👋 Make sure to try the **React integration!**
 
 - Re-render your components when observed data is changed (with `useObserved`)
 - Run arbitrary logic when observed data is changed (with `useObserver`)
 - Create a computed value from 1+ observable values (with `useDerived`)
 - Reactive memoization (with `useMemos` and `useKeyedMemos`)
 
-[react]: ../src/react
+### ⚛️ [Learn more](../src/react) ⚛️
 
 &nbsp;
 
