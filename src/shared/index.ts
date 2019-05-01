@@ -1,5 +1,10 @@
 export * from './symbols'
 
+/** Give `any` its own class */
+export abstract class Any {
+  protected _: any
+}
+
 /** Resolve object intersections */
 export type Id<T> = { [P in keyof T]: T[P] }
 

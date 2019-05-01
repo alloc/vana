@@ -1,5 +1,6 @@
 import { Immutable, isDraftable } from 'immer'
 import {
+  Any,
   copyProp,
   each,
   getProto,
@@ -40,7 +41,7 @@ export function o<T extends {}>(
 /**
  * Create an Observable with the given value.
  */
-export function o<T>(value: T): any extends T ? any : Observable<T>
+export function o<T>(value: T): [T] extends [Any] ? any : Observable<T>
 
 /** @internal */
 export function o(arg: unknown) {
