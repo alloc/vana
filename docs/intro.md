@@ -2,12 +2,26 @@
 
 # Introduction
 
-Enjoy the power of [transparent](https://stackoverflow.com/a/17385138/2228559) [subscriptions](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern) without losing the speed and safety of
-[immutability](https://benmccormick.org/2016/06/04/what-are-mutable-and-immutable-data-structures-2).
+Vana adds **observability** to normal objects without mutating their public
+appearance. The only exception to that rule is that all objects are made
+**immutable**. This is Vana at its core.
+
+Vana also has a [React integration][react], which is recommended.
+
+[react]: ../src/react
+
+**What is immutability?** You copy frozen objects so you can mutate them. [Read
+this](https://benmccormick.org/2016/06/04/what-are-mutable-and-immutable-data-structures-2)
+
+**What is observability?** You subscribe to changes in data. In the case of
+Vana, you're subscribing to future copies of an immutable state tree/leaf.
+
+&nbsp;
 
 ## Core concepts
 
-Here are the concepts you should understand before trying Vana.
+If you want to understand Vana on a deeper level, you can read this short list
+of rules that Vana follows.
 
 ### 1. Immutability is required
 
@@ -60,7 +74,7 @@ The entire API of Immer is re-exported by Vana ([see
 here][immer-api]).
 
 [immer]: https://github.com/mweststrate/immer
-[immer-api]: https://github.com/alloc/vana/blob/3a5bce2b16a8d672bfa489648f47968ce80e8a2c/src/index.ts#L13-L15
+[immer-api]: https://github.com/alloc/vana/blob/97937b7d31c9fe2d56af5d17bf1c02bfde2db300/src/core/index.ts#L32-L33
 [imperative]: https://en.wikipedia.org/wiki/Imperative_programming
 [ss]: http://raganwald.com/2019/01/14/structural-sharing-and-copy-on-write.html
 
