@@ -61,7 +61,8 @@ export class Observable<T = any> implements IObserver<T> {
     let observer: ITapper = {
       onUpdate,
       dispose: () => this._removeObserver(observer),
-      _onChange: change => change.prop !== null || onUpdate(change.newValue),
+      _onChange: change =>
+        change.prop === null && onUpdate(change.newValue as any),
     }
     this._addObserver(observer)
     return observer

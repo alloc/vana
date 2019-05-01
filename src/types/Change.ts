@@ -3,15 +3,16 @@ import { AnyProp } from '../common'
 
 /** An observed change */
 export type Change<T = any> =
-  | RootChange<T>
+  | IRootChange<T>
   | (T extends object
       ? keyof T extends infer P
-        ? P extends any
-          ? NestedChange<T, P>
+        ? P extends keyof T
+          ? IPropChange<T, P> | IPropDeletion<T, P>
           : never
         : never
       : never)
 
+/** An object that receives change events */
 export interface IChangeTarget<T = any> {
   ['_onChange'](change: Change<T>): void
 }
@@ -31,23 +32,25 @@ interface IChange {
   state: Readonly<ImmerState> | null
 }
 
-type RootChange<T> = IChange & {
+interface IRootChange<T> extends IChange {
   prop: null
   oldValue: T
   newValue: T
   deleted: false
 }
 
-type NestedChange<T extends object, P extends keyof T = keyof T> =
-  | (IChange & {
-      prop: P
-      oldValue: T[P] | undefined
-      newValue: T[P]
-      deleted: false
-    })
-  | (IChange & {
-      prop: P
-      oldValue: T[P]
-      newValue: undefined
-      deleted: true
-    })
+interface IPropChange<T extends object, P extends keyof T = keyof T>
+  extends IChange {
+  prop: P
+  oldValue: T[P] | undefined
+  newValue: T[P]
+  deleted: false
+}
+
+interface IPropDeletion<T extends object, P extends keyof T = keyof T>
+  extends IChange {
+  prop: P
+  oldValue: T[P]
+  newValue: undefined
+  deleted: true
+}
