@@ -4,6 +4,7 @@ import {
   each,
   getProto,
   isArray,
+  isFunction,
   isObject,
   isThenable,
 } from '../shared'
@@ -43,7 +44,7 @@ export function o<T>(value: T): any extends T ? any : Observable<T>
 
 /** @internal */
 export function o(arg: unknown) {
-  if (typeof arg === 'function') {
+  if (isFunction(arg)) {
     return new OBinding(arg as any)
   }
   if (isObject(arg)) {

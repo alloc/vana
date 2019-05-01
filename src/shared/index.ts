@@ -49,6 +49,10 @@ export const noop = Function.prototype as (...args: any[]) => void
 export const getProto = Object.getPrototypeOf
 export const isArray = Array.isArray
 
+export function isFunction(value: unknown): value is Function {
+  return typeof value === 'function'
+}
+
 export function isObject(value: unknown): value is object {
   return value && typeof value === 'object'
 }

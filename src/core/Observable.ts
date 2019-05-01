@@ -1,5 +1,5 @@
 import { getDebug } from '../debug'
-import { $O, IDisposable, shallowCopy } from '../shared'
+import { $O, IDisposable, isFunction, shallowCopy } from '../shared'
 import { Change, IChangeTarget } from './Change'
 import { commit } from './commit'
 
@@ -102,7 +102,7 @@ export class Observable<T = any> implements IObserver<T> {
 
   /** @internal Swap out the source of truth for this observable. */
   ['_rebind'](source: Source<T>) {
-    this._get = typeof source == 'function' ? (source as any) : undefined
+    this._get = isFunction(source) ? source : undefined
     this._value = this._get ? undefined : (source as any)
   }
 

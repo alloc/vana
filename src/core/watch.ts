@@ -6,6 +6,7 @@ import {
   Dictionary,
   each,
   isArray,
+  isFunction,
 } from '../shared'
 import { $O } from '../shared'
 import { immer } from '../shared/immer'
@@ -50,7 +51,7 @@ export function watch(parent: any, arg?: any) {
       ? new Proxy({ target: parent, observable }, watchProxyHandler)
       : createLegacyProxy(parent, observable)
   }
-  if (typeof arg == 'function') {
+  if (isFunction(arg)) {
     return arg(watch(parent))
   }
   if (isWatchable(observable)) {

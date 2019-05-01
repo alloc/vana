@@ -1,4 +1,4 @@
-import { IDisposable } from '../shared'
+import { IDisposable, isFunction } from '../shared'
 import { Observable } from './Observable'
 
 export type Driver<T = any> = (
@@ -22,7 +22,7 @@ export class OBinding<T = any> extends Observable<T> {
   protected activate() {
     const result = this.driver(newValue => this.set(newValue, true))
     if (result) {
-      this._binding = typeof result == 'function' ? { dispose: result } : result
+      this._binding = isFunction(result) ? { dispose: result } : result
     }
   }
 

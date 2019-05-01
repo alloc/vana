@@ -1,4 +1,4 @@
-import { $O, Disposable, has } from '../shared'
+import { $O, Disposable, has, isFunction } from '../shared'
 import { isObservable } from './Observable'
 import { tap } from './tap'
 
@@ -31,13 +31,13 @@ export function keepAlive<T extends object>(initialState: T): Disposable<T> {
       if (prop == 'dispose') {
         return () => {
           observer.dispose()
-          if (typeof value == 'function') {
+          if (isFunction(value)) {
             value.call(target.state)
           }
         }
       }
       // Auto-bind methods from the prototype.
-      if (!has(target.state, prop) && typeof value == 'function') {
+      if (!has(target.state, prop) && isFunction(value)) {
         return value.bind(target.state)
       }
       return value
