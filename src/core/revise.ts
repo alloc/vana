@@ -31,7 +31,7 @@ export function revise<T extends object, Args extends any[]>(
  */
 export function revise<T extends object, U extends object>(
   base: T,
-  changes: { [P in keyof U]-?: P extends keyof T ? T[P] : never }
+  changes: Partial<T>
 ): T
 
 /** @internal */
