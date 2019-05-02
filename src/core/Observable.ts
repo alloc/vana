@@ -1,7 +1,7 @@
-import { getDebug } from '../debug'
 import { $O, IDisposable, isFunction, shallowCopy } from '../shared'
 import { Change, IChangeTarget } from './Change'
 import { commit } from './commit'
+import { getDebug } from './debug'
 
 /**
  * Observers are disposable "change targets".
