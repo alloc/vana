@@ -7,9 +7,17 @@
 [![Code style: Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/alecdotbiz)
 
-Observe your immutable state trees. 🌲👀
+Observe your immutable state trees.
+
+Vana adds **observability** to normal objects without mutating their public
+appearance. The only exception to that rule is that all objects are made
+**immutable**. This is Vana at its core.
+
+&nbsp;
 
 ### [Read the introduction.](./docs/intro.md)
+
+&nbsp;
 
 ## Basic usage
 
