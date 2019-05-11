@@ -1,4 +1,4 @@
-<img src="https://github.com/alloc/vana/raw/master/logo.png" width="260" />
+<img src="https://github.com/alloc/vana/raw/master/vana.png" width="260" />
 
 # Introduction
 
