@@ -1,6 +1,8 @@
 import { _, assert } from 'spec.ts'
 import { Change } from '../src'
 
+it('works', () => {})
+
 // TODO: fix generics with the Change type?
 export function usage<T>() {
   const change = {} as Change<T>
