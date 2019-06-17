@@ -30,6 +30,7 @@ export type PromiseResolver<T = any> = (
   reject: (error: Error) => void
 ) => void
 
+// This avoids casting to PromiseState
 const freezeState = freeze as <T = any>(
   state: PromiseState<T>
 ) => PromiseState<T>
