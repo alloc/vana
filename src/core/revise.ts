@@ -1,5 +1,5 @@
 import { isDraft, isDraftable } from 'immer'
-import { $O, each, getProto, has } from '../shared'
+import { $ALIVE, $O, each, getProto, has } from '../shared'
 import { produce, Recipe } from '../shared/immer'
 import { commit } from './commit'
 import { freeze, isFrozen } from './freeze'
@@ -37,7 +37,7 @@ export function revise<T extends object, U extends object>(
 /** @internal */
 export function revise(base: object, reviser: any, ...args: any[]) {
   let observable = base[$O]
-  if (observable && !observable._isCurrent(base)) {
+  if (observable && !base[$ALIVE] && !observable._isCurrent(base)) {
     throw Error('Outdated values cannot be revised')
   }
   return typeof reviser == 'object'

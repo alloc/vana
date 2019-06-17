@@ -1,4 +1,4 @@
-import { $O, IDisposable, isFunction, shallowCopy } from '../shared'
+import { $ALIVE, $O, IDisposable, isFunction, shallowCopy } from '../shared'
 import { Change, IChangeTarget } from './Change'
 import { commit } from './commit'
 import { getDebug } from './debug'
@@ -154,7 +154,7 @@ export function isObservable(value: any): value is object {
 export function getObservable<T = any>(value: object) {
   let observable: Observable<T> = value[$O]
   if (observable) {
-    if (!observable._isCurrent(value)) {
+    if (!value[$ALIVE] && !observable._isCurrent(value)) {
       throw Error('Outdated values cannot be observed')
     }
     return observable
