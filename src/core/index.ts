@@ -15,6 +15,7 @@ export * from './Change'
 
 // Functions
 export * from './array'
+export * from './bind'
 export * from './become'
 export * from './commit'
 export * from './commitArray'

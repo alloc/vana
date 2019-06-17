@@ -1,8 +1,13 @@
 import { IThenable } from '../shared'
+import { OBinding } from './bind'
 import { getObservable, IObserver } from './Observable'
 import { PromiseState } from './OPromise'
 
-export type Tapped<T> = T extends IThenable<infer U> ? PromiseState<U> : T
+export type Tapped<T> = T extends IThenable<infer U>
+  ? PromiseState<U>
+  : T extends OBinding<infer U>
+  ? U
+  : T
 
 /** Listen to an observable value for changes. */
 export function tap<T extends object>(
