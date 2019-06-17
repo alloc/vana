@@ -1,6 +1,6 @@
 import { o } from '../src'
 
-describe('new OBinding()', () => {
+describe('new OSink()', () => {
   it('waits to call the driver until an observer is added', () => {
     let next: (value: number) => void = undefined as any
     let ob = o<number>(_next => {

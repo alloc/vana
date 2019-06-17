@@ -3,9 +3,9 @@ import {
   getObservable,
   isObservable,
   o,
-  OBinding,
   Observable,
   OPromise,
+  OSink,
   revise,
   setAutoFreeze,
 } from '../src'
@@ -43,9 +43,9 @@ describe('o()', () => {
   })
 
   describe('when a driver function is passed', () => {
-    it('returns an OBinding', () => {
+    it('returns an OSink', () => {
       let ob = o<number>(next => {})
-      expect(ob).toBeInstanceOf(OBinding)
+      expect(ob).toBeInstanceOf(OSink)
     })
   })
 

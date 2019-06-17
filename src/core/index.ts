@@ -6,7 +6,7 @@ export type Observed<T> = T extends Observable<infer U> ? U : Tapped<T>
 
 // Classes
 export * from './Observable'
-export * from './OBinding'
+export * from './OSink'
 export * from './OPath'
 export * from './OPromise'
 export * from './OProps'

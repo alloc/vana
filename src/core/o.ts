@@ -10,10 +10,10 @@ import {
   isThenable,
 } from '../shared'
 import { $O } from '../shared'
-import { Driver, OBinding } from './OBinding'
 import { isObservable, Observable } from './Observable'
 import { bindPromise } from './OPromise'
 import { bindProps } from './OProps'
+import { Driver, OSink } from './OSink'
 
 /**
  * Create an Observable with the given driver.
@@ -48,7 +48,7 @@ export function o<T>(value: T): [T] extends [Any] ? any : Observable<T>
 /** @internal */
 export function o(arg: any) {
   if (isFunction(arg)) {
-    return new OBinding(arg)
+    return new OSink(arg)
   }
   if (isObject(arg)) {
     if (isThenable(arg)) {

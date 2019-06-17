@@ -6,13 +6,13 @@ export type Driver<T = any> = (
 ) => IDisposable | (() => void) | void
 
 /**
- * An observable binding to some other stream-like mechanism.
+ * An observable sink that binds to an event stream.
  *
  * The binding is lazy, which means no value exists until observed.
  *
  * The current value is always `undefined` when no observers exist.
  */
-export class OBinding<T = any> extends Observable<T> {
+export class OSink<T = any> extends Observable<T> {
   private _binding?: IDisposable
 
   constructor(public driver: Driver<T>) {
