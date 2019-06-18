@@ -101,6 +101,10 @@ import { useMemos } from 'vana'
 const arr = useMemos(props.items, item => <View>{item}</View>)
 ```
 
+**Note:** To avoid resetting the internal cache, you must wrap the function
+argument with the
+`useCallback` hook.
+
 &nbsp;
 
 ## useKeyedMemos
@@ -121,5 +125,9 @@ const arr = useKeyedMemos(
   item => <View>{item}</View>
 )
 ```
+
+**Note:** To avoid resetting the internal cache, you must wrap the function
+arguments with the
+`useCallback` hook.
 
 &nbsp;
