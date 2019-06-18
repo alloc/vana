@@ -1,9 +1,9 @@
-import { o, produce, tap } from '../src'
+import { Draft, o, produce, tap } from '../src'
 
 describe('tap()', () => {
   it('works with arrays', () => {
     let base = o([])
-    let push = produce<any[], any[]>((draft, ...values) => {
+    let push = produce((draft: any[], ...values: any[]) => {
       draft.push(...values)
     })
 
@@ -24,7 +24,7 @@ describe('tap()', () => {
 
   it('works with objects', () => {
     let base = o({ a: 1 })
-    let increment = produce<typeof base>(draft => {
+    let increment = produce((draft: Draft<typeof base>) => {
       draft.a++
     })
 
