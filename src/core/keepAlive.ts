@@ -40,7 +40,7 @@ export function keepAlive<T extends object>(initialState: T): Disposable<T> {
     getOwnPropertyDescriptor(_, prop) {
       const desc = Object.getOwnPropertyDescriptor(target.state, prop)
       if (desc) {
-        desc.writable = true
+        desc.writable = false
         desc.configurable = true
       }
       return desc
