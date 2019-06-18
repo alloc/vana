@@ -8,7 +8,7 @@ import { watch } from './watch'
  *
  * Can be passed to the `useObserved` or `tap` functions.
  */
-export interface OBinding<T = any> {
+export interface OLens<T = any> {
   (): T
   (newValue: T): void
 }
@@ -21,7 +21,7 @@ export interface OBinding<T = any> {
 export function bind<T extends object, P extends keyof T>(
   state: T,
   prop: P
-): OBinding<T[P]> {
+): OLens<T[P]> {
   // tslint:disable-next-line
   const binding = function(newValue?: T) {
     if (!arguments.length) return latest(state)[prop]

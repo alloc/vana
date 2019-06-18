@@ -1,11 +1,11 @@
 import { IThenable } from '../shared'
-import { OBinding } from './bind'
+import { OLens } from './bind'
 import { getObservable, IObserver } from './Observable'
 import { PromiseState } from './OPromise'
 
 export type Tapped<T> = T extends IThenable<infer U>
   ? PromiseState<U>
-  : T extends OBinding<infer U>
+  : T extends OLens<infer U>
   ? U
   : T
 
