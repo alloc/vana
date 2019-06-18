@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`keepAlive() throws if given object is not observable 1`] = `"Expected an observable object"`;
+
+exports[`keepAlive() throws if given object is not the latest revision 1`] = `"Expected an observable object"`;
