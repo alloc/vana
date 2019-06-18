@@ -1,6 +1,6 @@
-import { Observable } from '.'
 import { $O, AnyArray } from '../shared'
 import { commit } from './commit'
+import { Observable } from './Observable'
 
 /**
  * If `base` and `copy` have different lengths, emit a change for the "length"

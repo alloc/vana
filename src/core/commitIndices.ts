@@ -1,6 +1,6 @@
-import { Observable } from '.'
 import { $O, AnyArray } from '../shared'
 import { commit } from './commit'
+import { Observable } from './Observable'
 
 /**
  * Emit a change for each index in the given range.
