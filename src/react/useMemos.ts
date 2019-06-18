@@ -1,4 +1,5 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect } from 'react'
+import { useMemoOne } from 'use-memo-one'
 import { Observable } from '../core'
 import { useForceUpdate } from './common'
 
@@ -12,7 +13,7 @@ export function useMemos<T extends ReadonlyArray<any>, U>(
   compute: (value: T[number], index: number, array: T) => U
 ): U[] {
   const target = Observable.from(input)
-  const output = useMemo(
+  const output = useMemoOne(
     () => {
       return target ? target.get().map(compute) : []
     },

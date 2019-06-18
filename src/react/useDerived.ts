@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useRef } from 'react'
+import { useMemoOne } from 'use-memo-one'
 import { ObservedTuple, OTuple } from '../core'
 import { useForceUpdate } from './common'
 
@@ -16,11 +17,11 @@ export function useDerived<T extends any[], U>(
   derive: (...args: ObservedTuple<T>) => U,
   inputs: T
 ): U {
-  const target = useMemo(() => new OTuple(inputs), inputs)
+  const target = useMemoOne(() => new OTuple(inputs), inputs)
   const result = useRef<U>(undefined as any)
 
   // Ensure the result is never outdated.
-  useMemo(
+  useMemoOne(
     () => {
       result.current = derive(...(target.get() as any))
     },

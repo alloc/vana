@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemoOne } from 'use-memo-one'
 import { Driver, o, Observable } from '../core'
 import { emptyArray } from './common'
 
@@ -11,5 +11,5 @@ import { emptyArray } from './common'
  * Pass a function to create an observable subscriber.
  */
 export function useO<T>(source: T | Driver<T>, deps: any[] = emptyArray): T {
-  return useMemo(() => Observable.from(o(source))!, deps).get()
+  return useMemoOne(() => Observable.from(o(source))!, deps).get()
 }

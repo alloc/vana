@@ -1,6 +1,9 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect } from 'react'
+import { useMemoOne } from 'use-memo-one'
 import { Observable } from '../core'
 import { useForceUpdate } from './common'
+
+const createCache = () => Object.create(null)
 
 /**
  * Similar to `useMemos` except all memoized values are cached by the identity
@@ -15,11 +18,9 @@ export function useKeyedMemos<T extends object, U>(
   compute: (value: T, index: number, array: ReadonlyArray<T>) => U
 ): U[] {
   const target = Observable.from(input)
-  const cache = useMemo(() => Object.create(null), [target, keyof, compute])
-  const output = useMemo(
-    () => {
-      return target ? target.get().map(keyedCompute(cache, keyof, compute)) : []
-    },
+  const cache = useMemoOne(createCache, [target, keyof, compute])
+  const output = useMemoOne(
+    () => (target ? target.get().map(keyedCompute(cache, keyof, compute)) : []),
     [cache]
   )
 

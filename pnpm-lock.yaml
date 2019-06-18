@@ -1,6 +1,7 @@
 dependencies:
   immer: 3.1.1
   tslib: 1.9.3
+  use-memo-one: 1.1.0
 devDependencies:
   '@sucrase/jest-plugin': 2.0.0
   '@types/jest': 24.0.11
@@ -4211,6 +4212,12 @@ packages:
     dev: true
     resolution:
       integrity: sha1-iS/pWWCAXoVRnxzUOJ8stMu3ZS8=
+  /use-memo-one/1.1.0:
+    dev: false
+    peerDependencies:
+      react: ^16.8.0
+    resolution:
+      integrity: sha512-mGmKaX2vauOWpFas4mGXj65JXkueLcca3OsT2iBKwB/Nl7NQeABIzBYq/HzVkFvnHXsf/S59DNN5UEOU+Bp1uw==
   /use/3.1.1:
     dev: true
     engines:
@@ -4424,3 +4431,4 @@ specifiers:
   tslint-mango: 0.1.10
   tslint-no-circular-imports: 0.6.1
   typescript: 3.4.5
+  use-memo-one: ^1.1.0
