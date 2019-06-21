@@ -1,7 +1,7 @@
-import { $ALIVE, $O, definePrivate } from '../shared'
-import { latest } from './latest'
+import { $ALIVE, $O, definePrivate, isObject } from '../shared'
+import { getObservable } from './Observable'
+import { OProps } from './OProps'
 import { revise } from './revise'
-import { watch } from './watch'
 
 /**
  * An observable property wrapped in a function.
@@ -9,25 +9,48 @@ import { watch } from './watch'
  * Can be passed to the `useObserved` or `tap` functions.
  */
 export interface OLens<T = any> {
+  /** Get the latest value */
   (): T
-  (newValue: T): void
+  /** Update the latest value */
+  (newValue: Partial<T>): T
 }
 
-/**
- * Wrap an observable property in a getter/setter function.
- *
- * The returned function is also observable.
- */
+export function bind<T extends object>(state: T): OLens<T>
 export function bind<T extends object, P extends keyof T>(
   state: T,
   prop: P
-): OLens<T[P]> {
-  // tslint:disable-next-line
-  const binding = function(newValue?: T) {
-    if (!arguments.length) return latest(state)[prop]
-    revise(latest(state), { [prop]: newValue } as any)
+): OLens<T[P]>
+
+/**
+ * Wrap an observable object or property in a getter/setter function.
+ *
+ * The returned function is also observable.
+ *
+ * For object values, the setter merges any objects passed to it, instead of
+ * replacing the entire object value.
+ */
+export function bind(state: object, prop?: string | number): OLens {
+  const target = getObservable(state)
+  if (!(target instanceof OProps)) {
+    throw Error('Expected an observable object')
   }
-  definePrivate(binding, $O, watch(state, prop as any))
-  definePrivate(binding, $ALIVE, true)
-  return binding as any
+  const lens = (...args: any[]) => {
+    const state = target.get()
+    if (!args.length) {
+      return prop == null ? state : state[prop]
+    }
+    const newValue = args[0]
+    if (prop == null) {
+      return revise(state, newValue)
+    }
+    const oldValue = state[prop]
+    if (oldValue && oldValue[$O] && isObject(newValue)) {
+      return revise(oldValue, newValue)
+    }
+    revise(state, { [prop]: newValue })
+    return newValue
+  }
+  definePrivate(lens, $O, prop == null ? target : target.watch(prop))
+  definePrivate(lens, $ALIVE, true)
+  return lens
 }
