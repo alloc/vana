@@ -46,10 +46,7 @@ export function revise(base: object, reviser: any, ...args: any[]) {
 }
 
 /** @internal Supports observable and non-observable objects */
-export function assignToCopy<T extends object>(
-  base: T,
-  changes: Partial<T>
-): T {
+function assignToCopy<T extends object>(base: T, changes: Partial<T>): T {
   let copy: any
   let observable = base[$O] as OProps
 
