@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`bind() return value when no property is passed throws when the object is not observable 1`] = `"Expected an observable object"`;
