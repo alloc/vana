@@ -1,4 +1,3 @@
-/* tslint:disable:unified-signatures */
 import { $O, definePrivate, isThenable, IThenable, noop } from '../shared'
 import { commit } from './commit'
 import { freeze } from './freeze'
