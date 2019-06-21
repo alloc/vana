@@ -10,6 +10,6 @@ import { emptyArray } from './common'
  *
  * Pass a function to create an observable subscriber.
  */
-export function useO<T>(source: T | Driver<T>, deps: any[] = emptyArray): T {
+export function useO<T>(source: T | Driver<T>, deps = emptyArray): T {
   return useMemoOne(() => Observable.from(o(source))!, deps).get()
 }
