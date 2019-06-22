@@ -11,7 +11,10 @@ const {
 } = Object
 
 type AnySet<T = any> = Set<T> | WeakSet<T> | ReadonlySet<T>
-type AnyMap<K = any, V = any> = Map<K, V> | WeakMap<K, V> | ReadonlyMap<K, V>
+type AnyMap<K = any, V = any> =
+  | Map<K, V>
+  | WeakMap<K & object, V>
+  | ReadonlyMap<K, V>
 
 /**
  * Like `produce` in Immer, but observable!
