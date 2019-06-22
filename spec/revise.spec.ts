@@ -10,6 +10,13 @@ import {
   tap,
 } from '../src'
 
+// Special cases:
+//   revise({}, [])
+//   revise({}, (draft: never) => {})
+//   revise({}, (draft, a, b) => {}, 1, 2)
+//   revise(() => {}, {})
+//   revise(() => {}, [])
+
 describe('revise()', () => {
   it('can be passed a keepAlive object', () => {
     const state0 = o({ a: 1 })

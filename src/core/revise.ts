@@ -1,5 +1,5 @@
 import { isDraft, isDraftable } from 'immer'
-import { $ALIVE, $O, each, getProto, has } from '../shared'
+import { $ALIVE, $O, AnyArray, each, getProto, has } from '../shared'
 import { produce, Recipe } from '../shared/immer'
 import { commit } from './commit'
 import { freeze, isFrozen } from './freeze'
@@ -10,17 +10,21 @@ const {
   defineProperty: defineProp,
 } = Object
 
+type AnySet<T = any> = Set<T> | WeakSet<T> | ReadonlySet<T>
+type AnyMap<K = any, V = any> = Map<K, V> | WeakMap<K, V> | ReadonlyMap<K, V>
+
 /**
  * Like `produce` in Immer, but observable!
  *
  * Additional arguments are forwarded to the effect function.
  *
- * The observability of the returned object is inherited from the base object,
- * except when the producer returns a new object.
+ * The object returned by `revise` is only observable when either (1) the base
+ * object was/is observable and your producer returns nothing, or (2) your
+ * producer returns an observable value.
  */
 export function revise<T extends object, Args extends any[]>(
   base: T,
-  produce: Recipe<T, Args>,
+  producer: Recipe<T, Args>,
   ...args: Args
 ): T
 
@@ -29,10 +33,16 @@ export function revise<T extends object, Args extends any[]>(
  *
  * The observability of the returned object is inherited from the base object.
  */
-export function revise<T extends object, U extends object>(
-  base: T,
-  changes: Partial<T>
-): T
+export function revise<T extends object, U extends Partial<T>>(
+  base: T extends AnyArray | Function | AnyMap | AnySet
+    ? 'This value must be revised with a producer. Try passing a function as the 2nd argument'
+    : T,
+  changes: U extends AnyArray
+    ? 'Cannot merge an array into an object'
+    : U extends Function
+    ? U & Recipe<T>
+    : U
+): T & U
 
 /** @internal */
 export function revise(base: object, reviser: any, ...args: any[]) {
