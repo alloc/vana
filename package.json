@@ -11,6 +11,7 @@
   "scripts": {
     "build": "rimraf ./lib && tsc -p ./src",
     "lint": "concurrently -n tsc,tslint 'tsc -p .' 'tslint -p .'",
+    "prepare": "yarn build",
     "test": "jest",
     "test:cov": "jest --coverage && codecov"
   },
