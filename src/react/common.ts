@@ -1,10 +1,6 @@
-import { useCallback, useState } from 'react'
-
-const flip = (v: any) => !v
+import { useReducer } from 'react'
 
 export const emptyArray: any[] = []
 
-export function useForceUpdate(): () => void {
-  const [, u] = useState(false)
-  return useCallback(() => u(flip), emptyArray)
-}
+export const useForceUpdate = () =>
+  useReducer(() => ({}), {})[1] as (() => void)
