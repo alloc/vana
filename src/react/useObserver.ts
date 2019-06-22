@@ -8,7 +8,7 @@ import { emptyArray } from './common'
 export function useObserver<T>(
   source: T,
   onUpdate: (value: Observed<T>) => void,
-  inputs: any[] = emptyArray
+  inputs = emptyArray
 ) {
   const target = Observable.from(source)
   useEffect(

@@ -4,9 +4,9 @@ import { OProps } from './OProps'
 import { revise } from './revise'
 
 /**
- * An observable property wrapped in a function.
+ * An observable object or property wrapped in a function.
  *
- * Can be passed to the `useObserved` or `tap` functions.
+ * Can be observed with the `useObserved` and `tap` functions.
  */
 export interface OLens<T = any> {
   /** Get the latest value */
