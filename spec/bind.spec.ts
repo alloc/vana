@@ -20,7 +20,7 @@ describe('bind() return value', () => {
     expect(state.foo).toBe(2)
   })
 
-  it('can be observed', () => {
+  it('can be observed with "tap"', () => {
     let state = o({ foo: 1 })
 
     const foo = bind(state, 'foo')
@@ -32,6 +32,14 @@ describe('bind() return value', () => {
 
     foo(3)
     expect(spy).toBeCalledWith(3)
+  })
+
+  it('can be passed to "latest"', () => {
+    const state = o({ foo: 1 })
+    const foo = bind(state, 'foo')
+    expect(latest(foo)).toBe(1)
+    revise(state, { foo: 2 })
+    expect(latest(foo)).toBe(2)
   })
 
   describe('when the property value is an object', () => {
