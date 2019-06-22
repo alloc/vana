@@ -1,6 +1,6 @@
 {
   "name": "vana",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "main": "lib/index.js",
   "license": "MIT",
   "repository": "alloc/vana",
@@ -11,7 +11,6 @@
   "scripts": {
     "build": "rimraf ./lib && tsc -p ./src",
     "lint": "concurrently -n tsc,tslint 'tsc -p .' 'tslint -p .'",
-    "prepare": "yarn build",
     "test": "jest",
     "test:cov": "jest --coverage && codecov"
   },

@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`revise() when the 2nd argument is a plain object cannot revise a stale object 1`] = `"Outdated values cannot be revised"`;
-
-exports[`revise() when the 2nd argument is a plain object throws when the base object has a getter 1`] = `"Cannot mutate a computed property"`;
-
-exports[`revise() when the 2nd argument is a plain object throws when the base object is a class instance 1`] = `"Expected a plain object"`;
