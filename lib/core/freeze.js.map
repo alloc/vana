@@ -1,0 +1,1 @@
+{"version":3,"file":"freeze.js","sourceRoot":"","sources":["../../src/core/freeze.ts"],"names":[],"mappings":";;AAAA,yCAAuC;AAOvC,gCAAgC;AACnB,QAAA,QAAQ,GAAG,MAAM,CAAC,QAAQ,CAAA;AAEvC,8EAA8E;AAC9E,SAAgB,MAAM,CAAmB,IAAO;IAC9C,IAAI,aAAK,CAAC,UAAU;QAAE,MAAM,CAAC,MAAM,CAAC,IAAI,CAAC,CAAA;IACzC,OAAO,IAAW,CAAA;AACpB,CAAC;AAHD,wBAGC"}
