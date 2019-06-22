@@ -1,4 +1,4 @@
-import { $ALIVE, $O, definePrivate, isObject } from '../shared'
+import { $ALIVE, $O, definePrivate, isArray, isObject } from '../shared'
 import { getObservable } from './Observable'
 import { OProps } from './OProps'
 import { revise } from './revise'
@@ -44,7 +44,7 @@ export function bind(state: object, prop?: string | number): OLens {
       return revise(state, newValue)
     }
     const oldValue = state[prop]
-    if (oldValue && oldValue[$O] && isObject(newValue)) {
+    if (oldValue && oldValue[$O] && isObject(newValue) && !isArray(newValue)) {
       return revise(oldValue, newValue)
     }
     revise(state, { [prop]: newValue })
