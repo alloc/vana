@@ -43,6 +43,14 @@ describe('bind() return value', () => {
       expect(foo()).toBe(latest(state.foo))
       expect(foo()).toEqual({ a: 2, b: 1, c: 2 })
     })
+
+    it('does not merge arrays', () => {
+      const state = o({ foo: [1] })
+      const foo = bind(state, 'foo')
+      const newValue = [2]
+      foo(newValue)
+      expect(foo()).toBe(newValue)
+    })
   })
 
   describe('when no property is passed', () => {
