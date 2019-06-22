@@ -10,7 +10,7 @@ const {
   defineProperty: defineProp,
 } = Object
 
-type AnySet<T = any> = Set<T> | WeakSet<T> | ReadonlySet<T>
+type AnySet<T = any> = Set<T> | WeakSet<T & object> | ReadonlySet<T>
 type AnyMap<K = any, V = any> =
   | Map<K, V>
   | WeakMap<K & object, V>
