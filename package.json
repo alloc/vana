@@ -11,14 +11,13 @@
   "scripts": {
     "build": "rimraf ./lib && tsc -p ./src",
     "lint": "concurrently -n tsc,tslint 'tsc -p .' 'tslint -p .'",
-    "prepare": "yarn build",
+    "prepublishOnly": "yarn lint",
     "test": "jest",
     "test:cov": "jest --coverage && codecov"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged",
-      "pre-push": "npm run lint"
+      "pre-commit": "pretty-quick --staged"
     }
   },
   "peerDependencies": {
