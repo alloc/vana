@@ -1,12 +1,11 @@
 {
   "exclude": ["*.spec.ts"],
   "compilerOptions": {
-    "declaration": true,
     "importHelpers": true,
     "lib": ["es2017"],
     "moduleResolution": "node",
-    "noUnusedLocals": true,
     "outDir": "../lib",
+    "sourceMap": true,
     "strict": true,
     "suppressImplicitAnyIndexErrors": true,
     "target": "es5"

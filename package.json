@@ -2,11 +2,13 @@
   "name": "vana",
   "version": "0.5.4",
   "main": "lib/index.js",
+  "types": "src/index.ts",
   "license": "MIT",
   "repository": "alloc/vana",
   "description": "Observe your immutable state trees",
   "files": [
-    "lib"
+    "lib",
+    "src/**/*.{ts,tsx}"
   ],
   "scripts": {
     "build": "rimraf ./lib && tsc -p ./src",
