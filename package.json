@@ -1,6 +1,6 @@
 {
   "name": "vana",
-  "version": "0.5.6",
+  "version": "0.5.7",
   "main": "lib/index.js",
   "types": "src/index.ts",
   "license": "MIT",
