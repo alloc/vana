@@ -1,6 +1,6 @@
-import { $O, AnyArray, isObject } from '../shared'
+import { AnyArray } from '../shared'
 import { IChangeTarget } from './Change'
-import { getObservable, Observable } from './Observable'
+import { Observable } from './Observable'
 
 export type ObservedTuple<T extends AnyArray> = {
   [P in keyof T]: T[P] extends Observable<infer U> ? U : T[P]
@@ -15,14 +15,14 @@ export class OTuple<T extends AnyArray> extends Observable<ObservedTuple<T>> {
   private _source: T
 
   constructor(source: T) {
-    super(source.map(toValue) as any)
+    super(source.map(unwrap) as any)
     this._source = source
   }
 
   /** @internal */
   ['_onChange']() {
     let oldValue = this.get()
-    let newValue = this._source.map(toLastValue) as any
+    let newValue = this._source.map(unwrap) as any
     this._value = newValue
     super._onChange({
       target: this,
@@ -37,7 +37,7 @@ export class OTuple<T extends AnyArray> extends Observable<ObservedTuple<T>> {
   protected activate() {
     let targets: IChangeTarget[] = []
     this._source.forEach(elem => {
-      let target = getTarget(elem)
+      let target = Observable.from(elem)
       if (target && targets.indexOf(target) < 0) {
         target['_addObserver'](this)
         targets.push(target)
@@ -47,7 +47,7 @@ export class OTuple<T extends AnyArray> extends Observable<ObservedTuple<T>> {
 
   protected deactivate() {
     this._source.forEach(elem => {
-      let target = getTarget(elem)
+      let target = Observable.from(elem)
       if (target) {
         target['_removeObserver'](this)
       }
@@ -55,24 +55,7 @@ export class OTuple<T extends AnyArray> extends Observable<ObservedTuple<T>> {
   }
 }
 
-function getTarget(value: any): Observable | null {
-  if (value instanceof Observable) return value
-  return (value && value[$O]) || null
-}
-
-function toValue(value: any) {
-  if (value instanceof Observable) {
-    return value.get()
-  }
-  let target = isObject(value) ? getObservable(value) : null
-  return target ? target.get() : value
-}
-
-// Like `toValue` but tolerant of old revisions
-function toLastValue(value: any) {
-  if (value instanceof Observable) {
-    return value.get()
-  }
-  let target = value && value[$O]
+function unwrap(value: any) {
+  const target = Observable.from(value)
   return target ? target.get() : value
 }
