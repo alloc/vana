@@ -29,8 +29,10 @@ export class Observable<T = any> implements IObserver<T> {
   }
 
   /** Try coercing the given value into an Observable instance. */
-  static from<T = any>(value: any): Observable<T> | undefined {
-    return value instanceof Observable ? value : value ? value[$O] : undefined
+  static from<T = any>(value: any): Observable<T> | null {
+    return (
+      (value && (value[$O] || (value instanceof Observable && value))) || null
+    )
   }
 
   /** The current value. */
