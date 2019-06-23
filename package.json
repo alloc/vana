@@ -13,7 +13,7 @@
   "scripts": {
     "build": "rimraf ./lib && tsc -p ./src",
     "lint": "concurrently -n tsc,tslint 'tsc -p .' 'tslint -p .'",
-    "prepublishOnly": "yarn lint",
+    "prepublishOnly": "yarn lint && yarn build",
     "test": "jest",
     "test:cov": "jest --coverage && codecov"
   },
