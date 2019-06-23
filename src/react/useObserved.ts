@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useLayoutEffect } from 'react'
 import { Observable, Observed, OProps } from '../core'
 import { useForceUpdate } from './common'
 
@@ -18,7 +18,7 @@ export function useObserved(source: any, prop?: string | number) {
   }
 
   const forceUpdate = useForceUpdate()
-  useEffect(
+  useLayoutEffect(
     () => {
       if (target) return target.tap(forceUpdate).dispose
     },

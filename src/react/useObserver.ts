@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useLayoutEffect } from 'react'
 import { Observable, Observed } from '../core'
 import { emptyArray } from './common'
 
@@ -11,7 +11,7 @@ export function useObserver<T>(
   inputs = emptyArray
 ) {
   const target = Observable.from(source)
-  useEffect(
+  useLayoutEffect(
     () => {
       if (target) return target.tap(onUpdate).dispose
     },
