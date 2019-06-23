@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { useMemoOne } from 'use-memo-one'
 import { ObservedTuple, OTuple } from '../core'
+import { AnyArray } from '../shared'
 import { useForceUpdate } from './common'
 
 /**
@@ -13,7 +14,7 @@ import { useForceUpdate } from './common'
  * If none of the inputs will ever be an observable value, you should avoid
  * using this hook.
  */
-export function useDerived<T extends any[], U>(
+export function useDerived<T extends AnyArray, U>(
   derive: (...args: ObservedTuple<T>) => U,
   inputs: T
 ): U {

@@ -15,21 +15,20 @@ export class OProps<T extends Dictionary<any> = any> extends Observable<T> {
   }
 
   watch<P extends string | number>(prop: P): OProp<T, P> {
-    let watched = this.watched || (this.watched = Object.create(null))
+    const watched = this.watched || (this.watched = Object.create(null))
     return watched[prop] || (watched[prop] = new OProp<T, P>(this, prop))
   }
 
   /** @internal */
   ['_onChange'](change: Change<T>) {
-    // When a property has an observable value, it notifies us of changes using
-    // itself as the target.
+    // The target is either this or an OProp object whose value is observable.
     if (change.target !== this) {
-      let currProps = this.get()
+      const currProps = this.get()
 
       // When a change is from Immer, we must check if its state (or its parent state)
       // is related to us. If so, Immer will update our underlying value for us.
       if (change.state) {
-        let { copy, parent } = change.state
+        const { copy, parent } = change.state
         if (copy == currProps) return
         // Check against `parent.base` instead of `parent.copy` because changes
         // are processed from bottom-to-top, which means our underlying value
@@ -37,8 +36,8 @@ export class OProps<T extends Dictionary<any> = any> extends Observable<T> {
         if (parent && parent.base == currProps) return
       }
 
-      let target = change.target as OProp<T>
-      let nextProps = shallowCopy(currProps)
+      const target = change.target as OProp<T>
+      const nextProps = shallowCopy(currProps)
       nextProps[target.prop] = change.newValue
 
       // Bind `this` to its next value.
@@ -57,11 +56,12 @@ export class OProps<T extends Dictionary<any> = any> extends Observable<T> {
       change.newValue = nextProps
     }
 
-    // Notify property observers first.
+    // Property changes are handled before notifying root observers.
     else if (change.prop !== null) {
-      let { prop, oldValue, newValue } = change
+      const { prop, oldValue, newValue } = change
 
-      let oldObservable = oldValue && oldValue[$O]
+      // Ensure the new value is observable if it can be.
+      const oldObservable = oldValue && oldValue[$O]
       if (newValue) {
         let observable = getObservable(newValue)
 
@@ -76,15 +76,16 @@ export class OProps<T extends Dictionary<any> = any> extends Observable<T> {
         }
       }
 
+      // Notify any property observers.
       if (this.watched) {
-        let target = this.watched[prop]
+        const target = this.watched[prop]
         if (target) {
           commit(target, oldValue, newValue, null, false, change.state)
         }
       }
     }
 
-    // Notify root observers.
+    // Notify any root observers.
     super._onChange(change)
   }
 }
@@ -116,8 +117,8 @@ export class OProp<
   protected activate() {
     // Already active if the value is observable.
     if (!this._observedValue) {
-      let watched = this.parent.watched!
-      let target = watched[this.prop]
+      const watched = this.parent.watched!
+      const target = watched[this.prop]
       if (!target) {
         watched[this.prop] = this
       } else if (target !== this) {
@@ -137,7 +138,7 @@ export class OProp<
 
   private _observeValue(value: T[P]) {
     // Avoid throwing on stale values.
-    let observed = value && value[$O]
+    const observed = value && value[$O]
     if (observed) {
       if (observed !== this._observedValue) {
         if (this._observedValue) {
@@ -177,7 +178,7 @@ export function bindProps<T extends object>(root: Exclude<T, Function>) {
   const observeTree = (parent: object, observer: OProps) => {
     // Only enumerable keys are made observable.
     Object.keys(parent).forEach(prop => {
-      let value = parent[prop]
+      const value = parent[prop]
       if (isObject(value)) {
         let observable = getObservable(value) as OProps
         if (!observable) {
