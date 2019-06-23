@@ -21,8 +21,8 @@ export class OTuple<T extends AnyArray> extends Observable<ObservedTuple<T>> {
 
   /** @internal */
   ['_onChange']() {
-    let oldValue = this.get()
-    let newValue = this._source.map(unwrap) as any
+    const oldValue = this.get()
+    const newValue = this._source.map(unwrap) as any
     this._value = newValue
     super._onChange({
       target: this,
@@ -35,9 +35,9 @@ export class OTuple<T extends AnyArray> extends Observable<ObservedTuple<T>> {
   }
 
   protected activate() {
-    let targets: IChangeTarget[] = []
+    const targets: IChangeTarget[] = []
     this._source.forEach(elem => {
-      let target = Observable.from(elem)
+      const target = Observable.from(elem)
       if (target && targets.indexOf(target) < 0) {
         target['_addObserver'](this)
         targets.push(target)
@@ -47,7 +47,7 @@ export class OTuple<T extends AnyArray> extends Observable<ObservedTuple<T>> {
 
   protected deactivate() {
     this._source.forEach(elem => {
-      let target = Observable.from(elem)
+      const target = Observable.from(elem)
       if (target) {
         target['_removeObserver'](this)
       }
