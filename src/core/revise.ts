@@ -53,6 +53,10 @@ export function revise(base: object, reviser: any, ...args: any[]) {
   if (observable && !base[$ALIVE] && !observable._isCurrent(base)) {
     throw Error('Outdated values cannot be revised')
   }
+
+  // Replace observable proxies with their latest revision.
+  base = observable.get()
+
   return typeof reviser == 'object'
     ? assignToCopy(base, reviser)
     : produce(base, args.length ? draft => reviser(draft, ...args) : reviser)
