@@ -55,7 +55,9 @@ export function revise(base: object, reviser: any, ...args: any[]) {
   }
 
   // Replace observable proxies with their latest revision.
-  base = observable.get()
+  if (observable) {
+    base = observable.get()
+  }
 
   return typeof reviser == 'object'
     ? assignToCopy(base, reviser)
