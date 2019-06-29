@@ -1,6 +1,6 @@
 {
   "name": "vana",
-  "version": "0.5.8",
+  "version": "0.5.9",
   "main": "lib/index.js",
   "license": "MIT",
   "repository": "alloc/vana",
