@@ -33,7 +33,7 @@
     "@types/jest": "24.0.11",
     "@types/node": "10.11.7",
     "@types/react": "^16.8.15",
-    "codecov": "3.2.0",
+    "codecov": "3.6.5",
     "concurrently": "^4.1.0",
     "if-node-version": "1.1.1",
     "jest": "24.5.0",
